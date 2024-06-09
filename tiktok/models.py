@@ -18,4 +18,7 @@ class UserSongMoods(models.Model):
     
     class Meta:
         unique_together = ('user', 'song')
-    
+
+
+def separate_moods(s):
+    return s.split(',')
