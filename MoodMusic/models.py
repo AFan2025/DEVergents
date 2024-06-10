@@ -17,7 +17,7 @@ class UserSongMoods(models.Model):
         return f"{self.user.username} - {self.song}"
     
     class Meta:
-        unique_together = ('user', 'song')
+        unique_together = ('user', 'song', 'moods')
 
 
 def separate_moods(s):
