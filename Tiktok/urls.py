@@ -21,4 +21,5 @@ from MoodMusic import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('testpath/', views.test),
+    path('swipe/', views.get_swipe_info)
 ]
