@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from MoodMusic import views
+from .views import song_search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('testpath/', views.test),
-    path('swipe/', views.get_swipe_info)
+    path('swipe/', views.get_swipe_info),
+    path("search/", song_search, name="song_search")
 ]
