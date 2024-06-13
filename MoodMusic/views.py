@@ -15,15 +15,27 @@ def test(request):
 
 def get_swipe_info(request):
     try:
-        a = random.randint(0,1)
-        b = random.randint(0,1)
-        c = random.randint(0,1)
-        random_song = (f'{Song.objects.all()[a].title} by {Song.objects.all()[a].artist}')
-        random_mood1 = (UserSongMoods.objects.all()[b].moods)
-        random_mood2 = (UserSongMoods.objects.all()[c].moods)
+        song_count = Song.objects.count()
+        mood_count = UserSongMoods.objects.count()
+        
+        if song_count == 0 or mood_count == 0:
+            raise Http404("No songs or moods available")
+        
+        random_song_index = random.randint(0, song_count - 1)
+        random_song = Song.objects.all()[random_song_index]
+
+        random_mood1_index = random.randint(0, mood_count - 1)
+        random_mood2_index = random.randint(0, mood_count - 1)
+        random_mood1 = UserSongMoods.objects.all()[random_mood1_index].moods
+        random_mood2 = UserSongMoods.objects.all()[random_mood2_index].moods
+
+        song_info = f'{random_song.title} by {random_song.artist}'
+        response_text = f'{song_info}-- Do you think it is more {random_mood1} or {random_mood2}?'
+        
     except UserSongMoods.DoesNotExist:
         raise Http404("Usersongmood does not exist")
-    return HttpResponse(f'{random_song}-- Do you think it is more {random_mood1} or {random_mood2}?')
+
+    return HttpResponse(response_text)
 
 
 def song_search(request):
