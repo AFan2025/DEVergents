@@ -68,4 +68,14 @@ def song_search(request):
         songs = Song.objects.filter(title__icontains=query)
     else:
         songs = Song.objects.none()
-    return render(request, 'search_results.html', {'songs': songs})
+    data = {
+        'songs': [
+            {
+                'title': song.title,
+                'artist': song.artist,
+            }
+            for song in songs
+        ]
+    }
+    # Return the data as JSON
+    return JsonResponse(data)
