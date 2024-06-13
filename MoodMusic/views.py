@@ -8,6 +8,8 @@ import random
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
+from django.db.models import Q
+
 
 def test(request):
     try:
@@ -65,7 +67,7 @@ def profile(request, username):
 def song_search(request):
     query = request.GET.get('q', '')
     if query:
-        songs = Song.objects.filter(title__icontains=query)
+        songs = Song.objects.filter(Q(title__icontains=query) | Q(artist__icontains=query))
     else:
         songs = Song.objects.none()
     data = {
