@@ -24,3 +24,12 @@ def get_swipe_info(request):
     except UserSongMoods.DoesNotExist:
         raise Http404("Usersongmood does not exist")
     return HttpResponse(f'{random_song}-- Do you think it is more {random_mood1} or {random_mood2}?')
+
+
+def song_search(request):
+    query = request.GET.get('q', '')
+    if query:
+        songs = Song.objects.filter(title__icontains=query)
+    else:
+        songs = Song.objects.none()
+    return render(request, 'search_results.html', {'songs': songs})
