@@ -40,7 +40,14 @@ def get_swipe_info(request):
     except UserSongMoods.DoesNotExist:
         raise Http404("Usersongmood does not exist")
 
-    return HttpResponse(response_text)
+    data = {
+        'song_info': song_info,
+        'mood_options': [random_mood1, random_mood2],
+        'message': response_text
+    }
+
+    # Return the data as JSON
+    return JsonResponse(data)
 
 def profile(request, username):
     # Get the user object or return a 404 if the user does not exist
