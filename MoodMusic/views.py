@@ -5,6 +5,9 @@ from django.http import Http404, HttpResponse
 
 from MoodMusic.models import UserSongMoods, Song
 import random
+from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpResponse, JsonResponse
+from django.contrib.auth.models import User
 
 def test(request):
     try:
@@ -37,6 +40,27 @@ def get_swipe_info(request):
 
     return HttpResponse(response_text)
 
+def profile(request, username):
+    # Get the user object or return a 404 if the user does not exist
+    user = get_object_or_404(User, username=username)
+    
+    # Filter UserSongMoods objects for this user
+    user_song_moods = UserSongMoods.objects.filter(user=user)
+    
+    # Prepare the data to be returned
+    data = {
+        'username': user.username,
+        'songs': [
+            {
+                'song': str(usr_song_mood.song),
+                'moods': usr_song_mood.moods
+            }
+            for usr_song_mood in user_song_moods
+        ]
+    }
+    
+    # Return the data as JSON
+    return JsonResponse(data)
 
 def song_search(request):
     query = request.GET.get('q', '')

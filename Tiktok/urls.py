@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('testpath/', views.test),
     path('swipe/', views.get_swipe_info),
-    path("search/", views.song_search)
+    path("search/", views.song_search),
+    path('profile/<str:username>/', views.profile, name='profile'),
 ]
