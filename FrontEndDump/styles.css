@@ -1,0 +1,280 @@
+body {
+    background-color: #983E3E;
+    font-family: 'Inconsolata', monospace; 
+    margin: 0;
+    padding: 0;
+    color: #983E3E;
+    display: flex;
+    flex-direction: column;  
+    cursor: url("h.png"), auto;
+
+}
+  body:hover {
+    cursor: url("cursor.png"), auto;
+  }
+  
+header {
+    background-color: #983E3E;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 4em;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+ 
+}
+
+.main-nav li a:hover {
+    background-color: rgb(238, 117, 137);
+    color: rgb(7, 6, 12);
+    font: bold;
+}
+
+cursor:hover {
+    cursor: url("h.png"), auto;
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    cursor: pointer;
+    position: relative;
+    padding: 10px 20px;
+    background: #ffebee;
+    font-size: 28px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: all 1s;
+}
+
+.btn:after, .btn:before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: 0px solid #fff;
+    transition: all 1s;
+}
+
+
+.data-container {
+    background: #ffebee;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar {
+    display: flex;
+    position: fixed;
+    color: #983E3E;
+    top: 60px; /* Adjust this to match header height */
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+    justify-content: center;
+    background-color: #983E3E; /* Background color for the toolbar */
+    z-index: 1;
+    cursor: url("cursor.png"), auto;
+}
+
+.toolbar ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.toolbar ul li {
+    margin: 0 20px;
+    text-align: center;
+}
+
+.toolbar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 6em;
+    transition: all 0s;
+}
+
+.toolbar a {
+    color: #000; /* Default color */
+    text-decoration: none;
+    padding: 10px;
+    transition: color 0.0s;
+}
+
+.toolbar a:hover {
+    color: white; /* Color changes to red on hover */
+    cursor: url("cursor1.png"), auto;
+}
+    
+
+.blur img {
+    transition: 1s ease;
+    filter: none;
+    -webkit-filter: none;
+}
+
+.blur img:hover {
+    -webkit-filter: blur(5px);
+    transition: 1s ease;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 120px; /* Adjust this to match header and toolbar height */
+}
+
+#classify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.image-container {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 120px); /* Full height minus header and toolbar height */
+    top: 120px; /* Adjust this to match header and toolbar height */
+    
+}
+
+#man-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
+
+header {
+  height: 200vh;
+}
+
+.container {
+  /* hide fixed overflow contents */
+  clip: rect(0, auto, auto, 0);
+
+  /* does not work if overflow = visible */
+  overflow: hidden;
+
+  /* only works with absolute positioning */
+  position: absolute;
+
+  /* Make sure containers are full-width and height */
+  height: 100vh;
+  left: 0;
+  width: 100%;
+  
+  
+  /* safari hack */
+  -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%,#ffffff 100%);
+}
+
+.container_solid {
+  background: white;
+  
+  /* position this container at the top of its parent element */
+  top: 0;
+}
+
+.title_wrapper {
+  position: fixed;
+  display: block;  
+  margin: auto;
+  width: 100%;
+  /* center the text wrapper vertically */
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.title_wrapper h1 {
+  text-align: center;
+  font-size: 64px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+}
+
+.container_solid .title_wrapper h1 {
+  /* the text background */
+  background: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?&q=85);
+  background-size: 100vw auto;
+  background-position: center;
+  
+  /* clip the text is possible */
+  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  
+  /* fallback text color */
+  color: black;
+}
+
+.container_image {
+  /* Grab a free image from unsplash */
+  background-image: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+  background-size:100vw auto;
+  background-position: center;
+  background-attachment: fixed;
+  
+  /* position the second container below the first container */
+  top: 100vh;
+}
+
+.container_image .title_wrapper h1 {
+  color: white;
+}
+
+.image-container h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11em;
+    margin: 0;
+    padding: 0;
+    cursor: url("cursor1.png"), auto;
+}
+
+.find-songs-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 2em;
+}
+
+.album-cover img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #CCFCCB;
+}
