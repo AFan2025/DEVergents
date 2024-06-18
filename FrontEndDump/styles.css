@@ -1,40 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
+
+header {
+    height: 100vh;
+}
+
+.container {
+    clip: rect(0, auto, auto, 0);
+    overflow: hidden;
+    position: absolute;
+    height: 100vh;
+    left: 0;
+    width: 100%;
+    -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+}
+
+.container_solid {
+    background: white;
+    top: 0;
+}
+
+.title_wrapper {
+    position: fixed;
+    display: block;
+    margin: auto;
+    width: 100%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+
+.title_wrapper h1 {
+    text-align: center;
+    font-size: 200px;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: 'Inconsolata', monospace;
+}
+
+.login_wrapper2 {
+    position: fixed;
+    display: block;
+    margin: auto;
+    width: 100%;
+    bottom: 0px; /* Move the login box higher */
+    text-align: center;
+    font-size: 1.5em;
+    
+}
+
+.login_icon {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 50px;
+    height: auto;
+}
+
+.login_wrapper2 footer {
+    text-align: end;
+    font-size: 1.5em;
+    color: black;
+    text-decoration: none;
+    font-family: 'Inconsolata', monospace;
+    color: black;
+}
+
+
+.login_wrapper{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    text-align: center;
+    font-size: 1.5em;
+    color: black;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.login_input {
+    padding: 10px;
+    margin: 5px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-family: 'Inconsolata', monospace;
+    border-radius: 0; /* Remove border radius for sharp corners */
+    width: 200px;
+    font-family: 'Inconsolata', monospace; /* Match the font */
+}
+
+.login_button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1em;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: url("cursor.png"), auto;
+    text-transform: uppercase;
+    font-family: 'Inconsolata', monospace; /* Match the font */
+}
+
+.login_button:hover {
+    text-decoration: overline underline;
+    background-color: transparent;
+}
+
+.container_solid .title_wrapper h1 {
+    background: url(med.jpg);
+    background-size: 100vw auto;
+    background-position: center;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: black;
+}
+
+.container_image {
+    background-image: url(med.jpg);
+    background-size: 100vw auto;
+    background-position: center;
+    background-attachment: fixed;
+    top: 100vh;
+}
+
+.container_image .title_wrapper h1 {
+    color: white;
+}
+
+section {
+    min-height: 100vh;
+    padding: 2em;
+    margin: auto;
+    max-width: 800px;
+}
+
+section h2 {
+    font-family: 'Fraunces', serif;
+}
+
 body {
-    background-color: #983E3E;
-    font-family: 'Inconsolata', monospace; 
+    background-color: white;
+    font-family: 'Inconsolata', monospace;
     margin: 0;
     padding: 0;
-    color: #983E3E;
+    text-transform: uppercase;
     display: flex;
-    flex-direction: column;  
+    flex-direction: column;
     cursor: url("h.png"), auto;
-
 }
-  body:hover {
+
+body:hover {
     cursor: url("cursor.png"), auto;
-  }
-  
-header {
-    background-color: #983E3E;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    font-size: 4em;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 2;
- 
 }
-
-.main-nav li a:hover {
-    background-color: rgb(238, 117, 137);
-    color: rgb(7, 6, 12);
-    font: bold;
-}
-
-cursor:hover {
-    cursor: url("h.png"), auto;
-  }
 
 body {
     margin: 0;
@@ -61,7 +184,6 @@ body {
     transition: all 1s;
 }
 
-
 .data-container {
     background: #ffebee;
     height: 100vh;
@@ -73,20 +195,17 @@ body {
 .toolbar {
     display: flex;
     position: fixed;
-    color: #983E3E;
-    top: 60px; /* Adjust this to match header height */
-    left: 0;
     width: 100%;
-    height: auto;
+    background: #fff;
+    height: 30px;
     padding-top: 20px;
     justify-content: center;
-    background-color: #983E3E; /* Background color for the toolbar */
     z-index: 1;
     cursor: url("cursor.png"), auto;
 }
 
 .toolbar ul {
-    list-style: none; /* Remove bullet points */
+    list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
@@ -95,46 +214,33 @@ body {
 }
 
 .toolbar ul li {
-    margin: 0 20px;
+    margin: 0 100px;
     text-align: center;
 }
 
 .toolbar ul li a {
     color: #000;
     text-decoration: none;
-    font-size: 6em;
+    font-size: 1.5em;
     transition: all 0s;
 }
 
 .toolbar a {
-    color: #000; /* Default color */
+    color: #000;
     text-decoration: none;
-    padding: 10px;
     transition: color 0.0s;
 }
 
 .toolbar a:hover {
-    color: white; /* Color changes to red on hover */
+    text-decoration: overline underline;
     cursor: url("cursor1.png"), auto;
-}
-    
-
-.blur img {
-    transition: 1s ease;
-    filter: none;
-    -webkit-filter: none;
-}
-
-.blur img:hover {
-    -webkit-filter: blur(5px);
-    transition: 1s ease;
 }
 
 main {
     padding: 20px;
     text-align: center;
     width: 100%;
-    margin-top: 120px; /* Adjust this to match header and toolbar height */
+    margin-top: 120px;
 }
 
 #classify {
@@ -150,101 +256,14 @@ main {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: calc(100vh - 120px); /* Full height minus header and toolbar height */
-    top: 120px; /* Adjust this to match header and toolbar height */
-    
+    height: calc(100vh - 120px);
+    top: 120px;
 }
 
 #man-image {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-}
-
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
-
-header {
-  height: 200vh;
-}
-
-.container {
-  /* hide fixed overflow contents */
-  clip: rect(0, auto, auto, 0);
-
-  /* does not work if overflow = visible */
-  overflow: hidden;
-
-  /* only works with absolute positioning */
-  position: absolute;
-
-  /* Make sure containers are full-width and height */
-  height: 100vh;
-  left: 0;
-  width: 100%;
-  
-  
-  /* safari hack */
-  -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%,#ffffff 100%);
-}
-
-.container_solid {
-  background: white;
-  
-  /* position this container at the top of its parent element */
-  top: 0;
-}
-
-.title_wrapper {
-  position: fixed;
-  display: block;  
-  margin: auto;
-  width: 100%;
-  /* center the text wrapper vertically */
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-          transform: translateY(-50%);
-}
-
-.title_wrapper h1 {
-  text-align: center;
-  font-size: 64px;
-  text-transform: uppercase;
-  text-align: center;
-  font-family: 'Fraunces', serif;
-  font-weight: 900;
-}
-
-.container_solid .title_wrapper h1 {
-  /* the text background */
-  background: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?&q=85);
-  background-size: 100vw auto;
-  background-position: center;
-  
-  /* clip the text is possible */
-  text-fill-color: transparent;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  
-  /* fallback text color */
-  color: black;
-}
-
-.container_image {
-  /* Grab a free image from unsplash */
-  background-image: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
-  background-size:100vw auto;
-  background-position: center;
-  background-attachment: fixed;
-  
-  /* position the second container below the first container */
-  top: 100vh;
-}
-
-.container_image .title_wrapper h1 {
-  color: white;
 }
 
 .image-container h2 {
