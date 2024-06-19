@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@900&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="sty.css">
+</head>
+<body>
+    <h1 class="big-heading">Add a Song</h1>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md navbar-light fixed-top eggshell-bg">
+        <div class="container-xxl">
+            <!-- navbar brand / title -->
+            <a class="navbar-brand" href="index.html">
+                <span class="text-secondary fw-bold">
+                    Classify Home
+                </span>
+            </a>
+            <!-- toggle button for mobile nav -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- navbar links -->
+            <div class="collapse navbar-collapse" id="main-nav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#search">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#rank-rate">Rate</a> <!-- Changed from #rank/rate to #rank-rate -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content for Search -->
+    <section id="search" class="mt-5">
+        <h2>Search for Music</h2>
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
+                    <input type="text" id="search-input" class="form-control" placeholder="Search by artist or song" onkeyup="showSuggestions()">
+                    <div id="suggestions" class="list-group"></div>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" onclick="searchMusic()">Search</button>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-secondary" onclick="generateRandomSong()">Random Song</button>
+                </div>
+            </div>        
+            <div class="row">
+                <div class="col-md-8" id="results"></div>
+                <div class="col-md-4">
+                    <div id="song-details" class="d-none">
+                        <a href="#rank-rate" onclick="updateRankRateSection()">
+                            <img id="album-cover" src="" alt="Album Cover" class="img-fluid">
+                        </a>
+                        <h3 id="song-title"></h3>
+                        <p id="artist-name"></p>
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content for Rank/Rate -->
+    <section id="rank-rate" class="mt-2">
+        <h2 id="rank-rate-title">Rank/Rate</h2>
+        <div class="main-container">
+            <div class="left-side">
+                <div class="instruction">Swipe to choose</div>
+                <div class="option-box" id="option-box">
+                    <div class="label top" id="both">Both</div>
+                    <div class="label left" id="option1">Day</div>
+                    <div class="label right" id="option2">Night</div>
+                    <div class="label bottom" id="neither">Neither</div>
+                    <h4 id="option-label"></h4>
+                </div>
+                <h4 class="text-center d-block d-md-none" id="mobile-song-title">Song Title</h4>
+            </div>
+            <div class="right-side d-none d-md-flex flex-column align-items-center">
+                <h4 class="text-end" id="song-title-display">Song Title</h4>
+                <ul class="results-list text-center" id="results-list">
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
