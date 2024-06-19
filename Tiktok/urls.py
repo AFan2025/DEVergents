@@ -19,6 +19,9 @@ from django.urls import path
 from MoodMusic import views
 
 urlpatterns = [
+    path('profile/<str:username>/', views.profile, name='profile'),
+    path('find_songs/', views.find_songs, name='find_songs'),
+    path('add_song/', views.add_song, name='add_song'),
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('testpath/', views.test),

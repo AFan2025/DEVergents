@@ -14,6 +14,18 @@ from django.db.models import Q
 def home(request):
     return render(request, 'index.html')
 
+def find_songs(request):
+    return render(request, 'find-songs.html')
+
+def add_song(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        artist = request.POST.get('artist')
+        if title and artist:
+            Song.objects.create(title=title, artist=artist)
+            return redirect('home')
+    return render(request, 'add-song.html')
+
 def test(request):
     try:
         p = UserSongMoods.objects.get(moods='Happy')
