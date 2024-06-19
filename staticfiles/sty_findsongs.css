@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
+
+/* General styles for the find songs page */
+body {
+    font-family: 'Inconsolata', monospace;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    cursor: url("h.png"), auto;
+}
+
+body:hover {
+    cursor: url(images/cursor.png), auto;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 120px; /* Adjust based on toolbar height */
+}
+
+#find-songs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.find-songs-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%;
+    font-family: 'Inconsolata', monospace;
+}
+
+.find-songs-container h2 {
+    font-family: 'Inconsolata', monospace;
+    font-size: 2em;
+    margin: 10px;
+}
+
+.album-cover {
+    margin: 20px;
+}
+
+.album-cover img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #CCFCCB;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .find-songs-container {
+        flex-direction: column;
+    }
+    .find-songs-container h2 {
+        font-size: 1.5em;
+    }
+    .album-cover {
+        width: 80%;
+    }
+}
+
+.find-songs-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    width: 100%;
+    font-family: 'Inconsolata', monospace;
+    transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+.find-songs-container h2 {
+    font-size: 2em;
+    margin: 10px;
+    position: relative;
+    z-index: 1; /* Ensure headings are on top */
+    color: #000; /* Default color */
+    transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+.album-cover {
+    margin: 20px;
+}
+
+.album-cover img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .find-songs-container {
+        flex-direction: column;
+    }
+    .find-songs-container h2 {
+        font-size: 1.5em;
+    }
+    .album-cover {
+        width: 80%;
+    }
+}
+

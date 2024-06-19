@@ -1,0 +1,57 @@
+body {
+    background-color: #800001; /* Maroon red color */
+    color: white; /* Ensure text is readable */
+    font-family: 'Inconsolata', monospace;
+}
+
+section{
+  padding: 60px 0;
+}
+.eggshell-bg {
+    background-color: #f0ead6; /* Eggshell color */
+    color: #000; /* Set text color to black for readability */
+}
+.image-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.image-container img {
+    width: 70%;
+    height: auto;
+    transition: filter 0.5s ease; /* Smooth transition for the blur effect */
+}
+
+.blurred {
+    filter: blur(5px);
+}
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.btn-custom {
+    background-color: #f0ead6;
+    color: black;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1.5rem; /* Larger text size */
+    padding: 15px 30px; /* Larger button size */
+}
+
+.btn-custom:hover,
+.btn-custom:focus {
+    background-color: gray;
+    color: #f0ead6;
+}
+
+.btn-custom:active {
+    background-color: grey;
+    color: #f0ead6;
+}

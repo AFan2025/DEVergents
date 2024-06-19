@@ -19,6 +19,7 @@ from django.urls import path
 from MoodMusic import views
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('testpath/', views.test),
     path('swipe/', views.get_swipe_info),

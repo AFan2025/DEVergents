@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import Http404, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
 from MoodMusic.models import UserSongMoods, Song
 import random
@@ -10,6 +11,8 @@ from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+def home(request):
+    return render(request, 'index.html')
 
 def test(request):
     try:
