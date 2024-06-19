@@ -57,7 +57,7 @@ header {
 
 .login_wrapper2 footer {
     text-align: end;
-    font-size: 1vm;
+    font-size: 1.5vm;
     color: black;
     text-decoration: none;
     font-family: 'Inconsolata', monospace;
@@ -83,7 +83,7 @@ header {
 .login_input {
     padding: 10px;
     margin: 5px;
-    font-size: 1vm;
+    font-size: 1.5vm;
     text-transform: uppercase;
     font-family: 'Inconsolata', monospace;
     border-radius: 0; /* Remove border radius for sharp corners */
@@ -93,7 +93,7 @@ header {
 .login_button {
     padding: 10px 20px;
     margin-top: 10px;
-    font-size: 1em;
+    font-size: 2em;
     background-color: transparent;
     color: white;
     border: none;
@@ -160,7 +160,7 @@ body {
 }
 
 .btn {
-    cursor: pointer;
+    cursor: url(images/cursor.png), auto;
     position: relative;
     padding: 10px 20px;
     background: #ffebee;
