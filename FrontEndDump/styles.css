@@ -32,7 +32,7 @@ header {
 
 .title_wrapper h1 {
     text-align: center;
-    font-size: 200px;
+    font-size: 15vw;
     text-transform: uppercase;
     font-weight: 900;
     font-family: 'Inconsolata', monospace;
@@ -45,8 +45,7 @@ header {
     width: 100%;
     bottom: 0px; /* Move the login box higher */
     text-align: center;
-    font-size: 1.5em;
-    
+    font-size: 1.5vm;
 }
 
 .login_icon {
@@ -58,21 +57,19 @@ header {
 
 .login_wrapper2 footer {
     text-align: end;
-    font-size: 1.5em;
+    font-size: 1vm;
     color: black;
     text-decoration: none;
     font-family: 'Inconsolata', monospace;
-    color: black;
 }
 
-
-.login_wrapper{
+.login_wrapper {
     position: absolute;
     top: 70%;
     left: 50%;
     transform: translate(-50%, -25%);
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.5vm;
     color: black;
 }
 
@@ -86,12 +83,11 @@ header {
 .login_input {
     padding: 10px;
     margin: 5px;
-    font-size: 1em;
+    font-size: 1vm;
     text-transform: uppercase;
     font-family: 'Inconsolata', monospace;
     border-radius: 0; /* Remove border radius for sharp corners */
     width: 200px;
-    font-family: 'Inconsolata', monospace; /* Match the font */
 }
 
 .login_button {
@@ -101,7 +97,7 @@ header {
     background-color: transparent;
     color: white;
     border: none;
-    cursor: url("cursor.png"), auto;
+    cursor: url(images/cursor.png), auto;
     text-transform: uppercase;
     font-family: 'Inconsolata', monospace; /* Match the font */
 }
@@ -112,7 +108,7 @@ header {
 }
 
 .container_solid .title_wrapper h1 {
-    background: url(med.jpg);
+    background: url(images/med.jpg);
     background-size: 100vw auto;
     background-position: center;
     -webkit-text-fill-color: transparent;
@@ -122,7 +118,7 @@ header {
 }
 
 .container_image {
-    background-image: url(med.jpg);
+    background-image: url(images/med.jpg);
     background-size: 100vw auto;
     background-position: center;
     background-attachment: fixed;
@@ -152,11 +148,10 @@ body {
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
-    cursor: url("h.png"), auto;
 }
 
 body:hover {
-    cursor: url("cursor.png"), auto;
+    cursor: url("images/cursor.png"), auto;
 }
 
 body {
@@ -201,7 +196,7 @@ body {
     padding-top: 20px;
     justify-content: center;
     z-index: 1;
-    cursor: url("cursor.png"), auto;
+    cursor: url("images/cursor.png"), auto;
 }
 
 .toolbar ul {
@@ -233,7 +228,7 @@ body {
 
 .toolbar a:hover {
     text-decoration: overline underline;
-    cursor: url("cursor1.png"), auto;
+    cursor: url("images/cursor1.png"), auto;
 }
 
 main {
@@ -275,7 +270,7 @@ main {
     font-size: 11em;
     margin: 0;
     padding: 0;
-    cursor: url("cursor1.png"), auto;
+    cursor: url("images/cursor1.png"), auto;
 }
 
 .find-songs-container {
@@ -296,4 +291,14 @@ main {
     max-width: 100%;
     height: auto;
     border: 2px solid #CCFCCB;
+}
+
+/* Responsive toolbar */
+@media (max-width: 768px) {
+    .toolbar ul {
+        flex-direction: column;
+    }
+    .toolbar ul li {
+        margin: 10px 0;
+    }
 }
