@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
+
+header {
+    height: 100vh;
+}
+
+.container {
+    clip: rect(0, auto, auto, 0);
+    overflow: hidden;
+    position: absolute;
+    height: 100vh;
+    left: 0;
+    width: 100%;
+    -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+}
+
+.container_solid {
+    background: white;
+    top: 0;
+}
+
+.title_wrapper {
+    position: fixed;
+    display: block;
+    margin: auto;
+    width: 100%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+
+.title_wrapper h1 {
+    text-align: center;
+    font-size: 200px;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-family: 'Inconsolata', monospace;
+}
+
+.login_wrapper2 {
+    position: fixed;
+    display: block;
+    margin: auto;
+    width: 100%;
+    bottom: 0px; /* Move the login box higher */
+    text-align: center;
+    font-size: 1.5em;
+    
+}
+
+.login_icon {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 50px;
+    height: auto;
+}
+
+.login_wrapper2 footer {
+    text-align: end;
+    font-size: 1.5em;
+    color: black;
+    text-decoration: none;
+    font-family: 'Inconsolata', monospace;
+    color: black;
+}
+
+
+.login_wrapper{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    text-align: center;
+    font-size: 1.5em;
+    color: black;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.login_input {
+    padding: 10px;
+    margin: 5px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-family: 'Inconsolata', monospace;
+    border-radius: 0; /* Remove border radius for sharp corners */
+    width: 200px;
+    font-family: 'Inconsolata', monospace; /* Match the font */
+}
+
+.login_button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1em;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: url("cursor.png"), auto;
+    text-transform: uppercase;
+    font-family: 'Inconsolata', monospace; /* Match the font */
+}
+
+.login_button:hover {
+    text-decoration: overline underline;
+    background-color: transparent;
+}
+
+.container_solid .title_wrapper h1 {
+    background: url(med.jpg);
+    background-size: 100vw auto;
+    background-position: center;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: black;
+}
+
+.container_image {
+    background-image: url(med.jpg);
+    background-size: 100vw auto;
+    background-position: center;
+    background-attachment: fixed;
+    top: 100vh;
+}
+
+.container_image .title_wrapper h1 {
+    color: white;
+}
+
+section {
+    min-height: 100vh;
+    padding: 2em;
+    margin: auto;
+    max-width: 800px;
+}
+
+section h2 {
+    font-family: 'Fraunces', serif;
+}
+
+body {
+    background-color: white;
+    font-family: 'Inconsolata', monospace;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    cursor: url("h.png"), auto;
+}
+
+body:hover {
+    cursor: url("cursor.png"), auto;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.btn {
+    cursor: pointer;
+    position: relative;
+    padding: 10px 20px;
+    background: #ffebee;
+    font-size: 28px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: all 1s;
+}
+
+.btn:after, .btn:before {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    border: 0px solid #fff;
+    transition: all 1s;
+}
+
+.data-container {
+    background: #ffebee;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    height: 30px;
+    padding-top: 20px;
+    justify-content: center;
+    z-index: 1;
+    cursor: url("cursor.png"), auto;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.toolbar ul li {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.toolbar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1.5em;
+    transition: all 0s;
+}
+
+.toolbar a {
+    color: #000;
+    text-decoration: none;
+    transition: color 0.0s;
+}
+
+.toolbar a:hover {
+    text-decoration: overline underline;
+    cursor: url("cursor1.png"), auto;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 120px;
+}
+
+#classify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.image-container {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 120px);
+    top: 120px;
+}
+
+#man-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.image-container h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 11em;
+    margin: 0;
+    padding: 0;
+    cursor: url("cursor1.png"), auto;
+}
+
+.find-songs-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 2em;
+}
+
+.album-cover img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #CCFCCB;
+}
+
+.navbar {
+    font-size: 1.25rem; /* Make navbar text larger */
+    font-weight: bold; /* Bold text */
+}
+
+.navbar-nav {
+    width: 100%;
+    justify-content: space-around; /* Evenly spread the navbar items */
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Make brand text larger */
+    font-weight: bold; /* Bold brand text */
+}
+
+.nav-item .nav-link {
+    padding: 0.5rem 1rem; /* Increase padding for larger clickable area */
+}
+
+body {
+    padding-top: 100px; /* Adjust to height of the fixed navbar */
+}
+
+.big-heading {
+    font-size: 4rem; /* Customize the size as needed */
+    font-weight: bold;
+    text-align: center;
+    position: relative; /* For the pseudo-elements positioning */
+}
+
+.big-heading::before,
+.big-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: black; /* Color of the line */
+}
+
+.big-heading::before {
+    top: -10px; /* Position the overline */
+}
+
+.big-heading::after {
+    bottom: -10px; /* Position the underline */
+}
