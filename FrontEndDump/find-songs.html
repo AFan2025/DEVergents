@@ -10,6 +10,8 @@
 <body>
     <header>
         <h1>Find Songs</h1>
+        <h2>{{ song.title }} by {{ song.artist }}</h2>
+        <h3>{{ mood1 }} vs. {{ mood2 }}</h3>
     </header>
     <nav>
         <ul>
@@ -18,14 +20,16 @@
     </nav>
     <main>
         <section id="find-songs">
-            <div class="find-songs-container">
-                <h2>Beachy</h2>
-                <div class="album-cover">
-                    <img src="{% static 'album.jpg' %}" alt="Album cover">
+            {% if song %}
+                <div class="song-container">
+                    <h2>{{ song.title }}</h2>
+                    <p>by {{ song.artist }}</p>
                 </div>
-                <h2>Mountainy</h2>
-            </div>
+            {% else %}
+                <p>{{ message }}</p>
+            {% endif %}
         </section>
     </main>
 </body>
 </html>
+

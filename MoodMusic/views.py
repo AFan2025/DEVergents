@@ -15,7 +15,23 @@ def home(request):
     return render(request, 'index.html')
 
 def find_songs(request):
-    return render(request, 'find-songs.html')
+    # Fetch all songs from the database
+    songs = Song.objects.all()
+    moods = UserSongMoods.objects.all()
+    if not songs:
+        # If there are no songs, handle the case gracefully
+        return render(request, 'find-songs.html', {'message': 'No songs available'})
+    
+    # Select a random song
+    random_song = random.choice(songs)
+    mood_count = UserSongMoods.objects.count()
+    random_mood1_index = random.randint(0, mood_count - 1)
+    random_mood2_index = random.randint(0, mood_count - 1)
+    random_mood1 = UserSongMoods.objects.all()[random_mood1_index].moods
+    random_mood2 = UserSongMoods.objects.all()[random_mood2_index].moods
+    
+    # Render the template with the random song
+    return render(request, 'find-songs.html', {'song': random_song, 'mood1': random_mood1, 'mood2': random_mood2})
 
 def add_song(request):
     if request.method == 'POST':
