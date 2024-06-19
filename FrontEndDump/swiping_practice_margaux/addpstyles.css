@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
+
+
+section {
+    min-height: 100vh;
+    padding: 2em;
+    margin: auto;
+    max-width: 800px;
+    color: rgb(111, 22, 22); /* Change text color to white */
+}
+
+section h2 {
+    font-family: 'Fraunces', serif;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+body {
+    background-color: white; /* Change background color to red */
+    font-family: 'Inconsolata', monospace;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    cursor: url("h.png"), auto;
+    color: rgb(2, 0, 0); /* Change text color to white */
+}
+
+body:hover {
+    cursor: url("cursor.png"), auto;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 120px;
+}
+
+/* Style for #classify element */
+#classify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color: white; /* Set background color to white */
+}
+
+/* Navbar styles */
+.navbar {
+    font-size: 1.25rem; /* Make navbar text larger */
+    font-weight: bold; /* Bold text */
+}
+
+.navbar-nav {
+    width: 100%;
+    justify-content: space-around; /* Evenly spread the navbar items */
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Make brand text larger */
+    font-weight: bold; /* Bold brand text */
+}
+
+/* Navbar link styles */
+.nav-item .nav-link {
+    padding: 0.5rem 1rem; /* Increase padding for larger clickable area */
+    color: black; /* Default text color */
+}
+
+/* Hover effect for navbar links */
+.nav-item .nav-link:hover {
+    color: rgb(115, 28, 28) !important; /* Change text color to white on hover with higher specificity */
+}
+
+/* Ensure proper padding for body */
+body {
+    padding-top: 100px; /* Adjust to height of the fixed navbar */
+}
+
+.big-heading {
+    font-size: 4rem; /* Customize the size as needed */
+    font-weight: bold;
+    text-align: center;
+    position: relative; /* For the pseudo-elements positioning */
+    color: black; /* Keep the Profile heading color different */
+}
+
+.big-heading::before,
+.big-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: black; /* Color of the line */
+}
+
+.big-heading::before {
+    top: -10px; /* Position the overline */
+}
+
+.big-heading::after {
+    bottom: -10px; /* Position the underline */
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    gap: 100px;
+    margin-bottom: 20px;
+}
+.left-side, .right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.right-side {
+    align-items: center; /* Center items horizontally */
+}
+.instruction {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+.option-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ddd;
+    background-color: #e9ecef;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 50px; /* Increase margin-bottom for more space below the option box */
+    background-image: url('album.jpg'); /* Add your image path here */
+    background-size: cover; /* Cover the entire box */
+    background-position: center; /* Center the image */
+}
+.option-box .label {
+    position: absolute;
+    font-size: 2rem;
+    color: white;
+}
+.option-box .left {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.option-box .right {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.option-box .top {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.option-box .bottom {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.results-list {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+.results-list li {
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+}
+.results-list .chosen {
+    color: rgb(5, 93, 5);
+}
+.results-list .not-chosen {
+    color: rgb(187, 34, 34);
+}
