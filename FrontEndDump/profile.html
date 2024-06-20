@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +7,15 @@
     <title>Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@900&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="profilestyles.css">
+    <link rel="stylesheet" href="{% static 'profilestyles.css' %}">
 </head>
 <body>
-    <h1 class="big-heading">Profile</h1>
+    <h1 class="big-heading">Profile of {{ username }}</h1>
     <!-- navbar -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top eggshell-bg">
         <div class="container-xxl">
             <!-- navbar brand / title -->
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{% url 'home' %}">
                 <span class="text-secondary fw-bold">
                     Classify Home
                 </span>
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="#friends">Friends?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">About</a>
+                        <a class="nav-link" href="{% url 'home' %}">About</a>
                     </li>
                 </ul>
             </div>
@@ -48,16 +48,32 @@
     <!-- Content for My Songs -->
     <section id="songs" class="mt-2">
         <h2>My Songs</h2>
+        <div class="container">
+            <div class="row">
+                {% for user_song_mood in user_song_moods %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ user_song_mood.song.title }} by {{ user_song_mood.song.artist }}</h5>
+                                <p class="card-text">Moods: {{ user_song_mood.moods }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </section>
 
     <!-- Content for Stats -->
     <section id="stats" class="mt-2">
         <h2>Stats</h2>
+        <!-- Add stats content here -->
     </section>
 
     <!-- Content for Friends? -->
     <section id="friends" class="mt-2">
         <h2>Friends?</h2>
+        <!-- Add friends content here -->
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

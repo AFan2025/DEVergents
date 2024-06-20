@@ -14,9 +14,14 @@
 <body>
     <nav class="toolbar">
         <ul>
-            <li><a href="{% url 'profile' 'testuser' %}">Profile</a></li>
-            <li><a href="{% url 'find_songs' %}">Find Songs</a></li>
-            <li><a href="{% url 'add_song' %}">Add A Song</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' user.username %}">Profile</a></li>
+                <li><a href="{% url 'find_songs' %}">Find Songs</a></li>
+                <li><a href="{% url 'add_song' %}">Add A Song</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
             <li><a href="about.html">About</a></li>
         </ul>
     </nav>
@@ -41,8 +46,8 @@
                 <div class="login_wrapper">
                     <form class="login_form" method="post" action="{% url 'login' %}">
                         {% csrf_token %}
-                        <input type="text" name="username" placeholder="username" class="login_input">
-                        <input type="password" name="password" placeholder="password" class="login_input">
+                        <input type="text" name="username" placeholder="username" class="login_input" required>
+                        <input type="password" name="password" placeholder="password" class="login_input" required>
                         <button type="submit" class="login_button">login</button>
                     </form>
                 </div>

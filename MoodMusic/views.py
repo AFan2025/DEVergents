@@ -3,14 +3,14 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.views.generic import View
 from MoodMusic.models import UserSongMoods, Song
 import random
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -109,19 +109,33 @@ def profile(request, username):
     user_song_moods = UserSongMoods.objects.filter(user=user)
     
     # Prepare the data to be returned
-    data = {
+    context = {
         'username': user.username,
-        'songs': [
-            {
-                'song': str(usr_song_mood.song),
-                'moods': usr_song_mood.moods
-            }
-            for usr_song_mood in user_song_moods
-        ]
+        'user_song_moods': user_song_moods
     }
     
-    # Return the data as JSON
-    return JsonResponse(data)
+    # Render the profile template with the context data
+    return render(request, 'profile.html', context)
+
+class ProfileView(LoginRequiredMixin, View):
+    login_url = 'login'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request, username, *args, **kwargs):
+        # Get the user object or return a 404 if the user does not exist
+        user = get_object_or_404(User, username=username)
+
+        # Filter UserSongMoods objects for this user
+        user_song_moods = UserSongMoods.objects.filter(user=user)
+
+        # Prepare the data to be returned
+        context = {
+            'username': user.username,
+            'user_song_moods': user_song_moods
+        }
+
+        # Render the profile template with the context data
+        return render(request, 'profile.html', context)
 
 def song_search(request):
     query = request.GET.get('q', '')
