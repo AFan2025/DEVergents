@@ -50,4 +50,26 @@ function suggestSongs() {
     });
 }
 
+function chooseMood(direction) {
+    if (direction === 'left') {
+        alert('You chose {{ mood1 }}');
+    } else if (direction === 'right') {
+        alert('You chose {{ mood2 }}');
+    }
+    // Add your logic here to handle the choice and load the next song
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var songContainer = document.querySelector('.song-container');
+    var hammer = new Hammer(songContainer);
+
+    hammer.on('swipeleft', function() {
+        chooseMood('left');
+    });
+
+    hammer.on('swiperight', function() {
+        chooseMood('right');
+    });
+});
+
 window.onload = loadSong;

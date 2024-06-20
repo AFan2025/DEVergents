@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from MoodMusic import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('create_user_song_mood/', views.create_user_song_mood, name='create_user_song_mood'),
     path('profile/<str:username>/', views.profile, name='profile'),
     path('find_songs/', views.find_songs, name='find_songs'),
     path('add_song/', views.add_song, name='add_song'),
@@ -28,4 +30,6 @@ urlpatterns = [
     path('swipe/', views.get_swipe_info),
     path("search/", views.song_search),
     path('profile/<str:username>/', views.profile, name='profile'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

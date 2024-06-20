@@ -11,6 +11,27 @@ from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
 
+from django.contrib.auth.decorators import login_required
+import json
+
+@login_required
+def create_user_song_mood(request):
+    if request.method == 'POST':
+        print("POST request received")  # Debugging statement
+        data = json.loads(request.body)
+        song_id = data.get('song_id')
+        mood = data.get('mood')
+        user = request.user
+
+        print(f"User: {user}, Song ID: {song_id}, Mood: {mood}")  # Debugging statement
+
+        song = get_object_or_404(Song, id=song_id)
+        UserSongMoods.objects.create(user=user, song=song, moods=mood)
+
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'fail'}, status=400)
+
 def home(request):
     return render(request, 'index.html')
 

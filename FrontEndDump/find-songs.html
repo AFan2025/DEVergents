@@ -6,12 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Songs</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+            padding: 0 20px;
+        }
+        .mood {
+            flex: 1;
+            text-align: center;
+            font-size: 2em;
+            cursor: pointer;
+            margin: 0 20px;
+        }
+        .song-container {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Find Songs</h1>
         <h2>{{ song.title }} by {{ song.artist }}</h2>
-        <h3>{{ mood1 }} vs. {{ mood2 }}</h3>
     </header>
     <nav>
         <ul>
@@ -19,17 +43,89 @@
         </ul>
     </nav>
     <main>
-        <section id="find-songs">
+        <section id="find-songs" class="container">
             {% if song %}
+                <div class="mood" id="mood-left" onclick="chooseMood('left')">
+                    {{ mood1 }}
+                </div>
                 <div class="song-container">
                     <h2>{{ song.title }}</h2>
                     <p>by {{ song.artist }}</p>
+                    <h3>{{ mood1 }} vs. {{ mood2 }}</h3>
+                </div>
+                <div class="mood" id="mood-right" onclick="chooseMood('right')">
+                    {{ mood2 }}
                 </div>
             {% else %}
                 <p>{{ message }}</p>
             {% endif %}
         </section>
     </main>
-</body>
-</html>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    
+        function chooseMood(direction) {
+            var mood;
+            if (direction === 'left') {
+                mood = '{{ mood1 }}';
+            } else if (direction === 'right') {
+                mood = '{{ mood2 }}';
+            }
+    
+            fetch("{% url 'create_user_song_mood' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie('csrftoken'),
+                },
+                body: JSON.stringify({
+                    song_id: "{{ song.id }}",
+                    mood: mood
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Mood saved successfully');
+                    // Optionally, you can add logic here to load the next song
+                } else if (data.status === 'not_authenticated') {
+                    alert('You need to log in to save your mood');
+                    // Redirect to login page or show a login modal
+                    window.location.href = "{% url 'login' %}?next={% url 'find_songs' %}";
+                } else {
+                    alert('Failed to save mood');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            var songContainer = document.querySelector('.song-container');
+            var hammer = new Hammer(songContainer);
+    
+            hammer.on('swipeleft', function() {
+                chooseMood('left');
+            });
+    
+            hammer.on('swiperight', function() {
+                chooseMood('right');
+            });
+        });
+    </script>
+    
