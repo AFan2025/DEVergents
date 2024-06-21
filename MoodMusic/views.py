@@ -54,13 +54,25 @@ def find_songs(request):
     # Render the template with the random song
     return render(request, 'find-songs.html', {'song': random_song, 'mood1': random_mood1, 'mood2': random_mood2})
 
+@login_required
 def add_song(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         artist = request.POST.get('artist')
-        if title and artist:
-            Song.objects.create(title=title, artist=artist)
-            return redirect('home')
+        mood = request.POST.get('mood')
+        try:
+            song = Song.objects.get(title=title, artist=artist)  # Use get() to fetch a single song
+        except Song.DoesNotExist:
+            return render(request, 'add-song.html', {'error': 'Song not found'})
+
+        # Create or update the mood associated with the song for the current user
+        UserSongMoods.objects.update_or_create(
+            user=request.user,
+            song=song,
+            defaults={'moods': mood}
+        )
+        return redirect('home')
+    
     return render(request, 'add-song.html')
 
 def test(request):
