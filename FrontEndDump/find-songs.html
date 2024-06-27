@@ -85,7 +85,7 @@
             } else if (direction === 'right') {
                 mood = '{{ mood2 }}';
             }
-    
+            
             fetch("{% url 'create_user_song_mood' %}", {
                 method: "POST",
                 headers: {
