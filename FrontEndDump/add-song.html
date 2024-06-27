@@ -38,7 +38,24 @@
                 <button type="submit">Submit</button>
             </form>
         </section>
-        
+        <section id="tiktok-videos">
+            <h2>Recent TikTok Videos</h2>
+            {% if videos %}
+                <div class="videos">
+                    {% for video in videos %}
+                        <div class="video">
+                            <h3>{{ video.title }}</h3>
+                            <p>{{ video.video_description }}</p>
+                            <img src="{{ video.cover_image_url }}" alt="{{ video.title }}">
+                            <a href="{{ video.embed_link }}" target="_blank">Watch on TikTok</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No recent videos found.</p>
+                <a href="{% url 'tiktok_login' %}">Login with TikTok to see your recent videos</a>
+            {% endif %}
+        </section>
     </div>
 </body>
 </html>

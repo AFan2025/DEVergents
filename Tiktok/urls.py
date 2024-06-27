@@ -33,4 +33,6 @@ urlpatterns = [
     path('profile/<str:username>/', ProfileView.as_view(), name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('tiktok/login/', views.tiktok_login, name='tiktok_login'),
+    path('tiktok/callback/', views.tiktok_callback, name='tiktok_callback'),
 ]

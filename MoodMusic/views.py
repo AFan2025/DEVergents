@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.http import Http404, HttpResponse
@@ -13,6 +13,8 @@ from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 import json
+import requests
+from django.conf import settings
 
 @login_required
 def create_user_song_mood(request):
@@ -166,3 +168,43 @@ def song_search(request):
     }
     # Return the data as JSON
     return JsonResponse(data)
+
+def tiktok_login(request):
+    # Redirect to TikTok authorization URL
+    auth_url = f"https://www.tiktok.com/auth/authorize/?client_key={settings.TIKTOK_CLIENT_KEY}&scope=user.info.basic,video.list&response_type=code&redirect_uri={settings.TIKTOK_REDIRECT_URI}"
+    return redirect(auth_url)
+
+def tiktok_callback(request):
+    # Handle TikTok callback and get access token
+    code = request.GET.get('code')
+    token_url = 'https://open.tiktokapis.com/oauth/access_token/'
+    data = {
+        'client_key': settings.TIKTOK_CLIENT_KEY,
+        'client_secret': settings.TIKTOK_CLIENT_SECRET,
+        'code': code,
+        'grant_type': 'authorization_code',
+        'redirect_uri': settings.TIKTOK_REDIRECT_URI,
+    }
+    response = requests.post(token_url, data=data)
+    response_data = response.json()
+    
+    # Save the access token and open_id in session
+    request.session['tiktok_access_token'] = response_data['data']['access_token']
+    request.session['tiktok_open_id'] = response_data['data']['open_id']
+    
+    return redirect('add_song')
+
+def fetch_tiktok_videos(request):
+    access_token = request.session.get('tiktok_access_token')
+    if not access_token:
+        return redirect('tiktok_login')  # Redirect to TikTok login if not authenticated
+    
+    video_list_url = 'https://open.tiktokapis.com/v2/video/list/?fields=id,title,video_description,duration,cover_image_url,embed_link'
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Content-Type': 'application/json',
+    }
+    response = requests.post(video_list_url, headers=headers, json={'max_count': 20})
+    response_data = response.json()
+    
+    return render(request, 'add_song.html', {'videos': response_data['data']['videos']})

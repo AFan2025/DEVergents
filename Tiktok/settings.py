@@ -17,6 +17,10 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOGIN_REDIRECT_URL = 'find_songs'
 LOGOUT_REDIRECT_URL = 'home'
+TIKTOK_CLIENT_KEY = 'sbawkami9jmc9ujkde'
+TIKTOK_CLIENT_SECRET = 'utJch2slKjpmY5ooj4XS6DEhlPC6wmP7'
+TIKTOK_REDIRECT_URI = 'http://127.0.0.1:8000/tiktok/callback/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
