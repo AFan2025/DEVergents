@@ -7,7 +7,7 @@
     <title>Find Songs</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
-        body, html {
+       body, html {
             height: 100%;
             margin: 0;
             font-family: 'Inconsolata', monospace;
@@ -90,6 +90,7 @@
             font-size: 1.2em;
             color: #666;
         }
+
     </style>
 </head>
 <body>
@@ -108,6 +109,11 @@
                     <h2>{{ song.title }}</h2>
                     <p>by {{ song.artist }}</p>
                     <h3>{{ mood1 }} vs. {{ mood2 }}</h3>
+                    {% if access_token %}
+                        <button onclick="playSong()">Play Song</button>
+                    {% else %}
+                        <a href="{% url 'spotify_login' %}">Login with Spotify to play song</a>
+                    {% endif %}
                 </div>
                 <div class="mood" id="mood-right" onclick="chooseMood('right')">
                     {{ mood2 }}
@@ -118,7 +124,34 @@
         </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = '{{ access_token }}';
+            const player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); }
+            });
+
+            // Error handling
+            player.addListener('initialization_error', ({ message }) => { console.error(message); });
+            player.addListener('authentication_error', ({ message }) => { console.error(message); });
+            player.addListener('account_error', ({ message }) => { console.error(message); });
+            player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+            // Playback status updates
+            player.addListener('player_state_changed', state => { console.log(state); });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+                window.spotifyDeviceId = device_id;
+            });
+
+            // Connect to the player!
+            player.connect();
+        };
+
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -133,7 +166,7 @@
             }
             return cookieValue;
         }
-    
+
         function chooseMood(direction) {
             var mood;
             if (direction === 'left') {
@@ -156,11 +189,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    window.location.reload();
-                    // Optionally, you can add logic here to load the next song
+                    location.reload(); // Reload the page to load the next song
                 } else if (data.status === 'not_authenticated') {
                     alert('You need to log in to save your mood');
-                    // Redirect to login page or show a login modal
                     window.location.href = "{% url 'login' %}?next={% url 'find_songs' %}";
                 } else {
                     alert('Failed to save mood');
@@ -170,19 +201,61 @@
                 console.error('Error:', error);
             });
         }
-    
+
         document.addEventListener('DOMContentLoaded', function () {
             var songContainer = document.querySelector('.song-container');
             var hammer = new Hammer(songContainer);
-    
+
             hammer.on('swipeleft', function() {
                 chooseMood('left');
             });
-    
+
             hammer.on('swiperight', function() {
                 chooseMood('right');
             });
         });
+
+        function playSong() {
+            console.log('Play button clicked');
+            if (!window.spotifyDeviceId) {
+                console.error('Spotify device ID is not available');
+                return;
+            }
+
+            fetch(`https://api.spotify.com/v1/search?q={{ song.title }}%20{{ song.artist }}&type=track&limit=1`, {
+                headers: {
+                    'Authorization': `Bearer {{ access_token }}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.tracks.items.length > 0) {
+                    const trackUri = data.tracks.items[0].uri;
+                    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${window.spotifyDeviceId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `Bearer {{ access_token }}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            uris: [trackUri]
+                        })
+                    })
+                    .then(response => {
+                        if (response.status === 204) {
+                            console.log('Playback started');
+                        } else {
+                            console.error('Error starting playback:', response.statusText);
+                        }
+                    });
+                } else {
+                    alert('Song not found on Spotify');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
     </script>
 </body>
 </html>

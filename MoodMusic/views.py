@@ -41,23 +41,23 @@ def home(request):
     return render(request, 'index.html')
 
 def find_songs(request):
-    # Fetch all songs from the database
+    access_token = request.session.get('spotify_access_token')
     songs = Song.objects.all()
     moods = UserSongMoods.objects.all()
     if not songs:
-        # If there are no songs, handle the case gracefully
         return render(request, 'find-songs.html', {'message': 'No songs available'})
-    
-    # Select a random song
     random_song = random.choice(songs)
     mood_count = UserSongMoods.objects.count()
     random_mood1_index = random.randint(0, mood_count - 1)
     random_mood2_index = random.randint(0, mood_count - 1)
     random_mood1 = UserSongMoods.objects.all()[random_mood1_index].moods
     random_mood2 = UserSongMoods.objects.all()[random_mood2_index].moods
-    
-    # Render the template with the random song
-    return render(request, 'find-songs.html', {'song': random_song, 'mood1': random_mood1, 'mood2': random_mood2})
+    return render(request, 'find-songs.html', {
+        'song': random_song,
+        'mood1': random_mood1,
+        'mood2': random_mood2,
+        'access_token': access_token,
+    })
 
 @login_required
 def add_song(request):
@@ -217,3 +217,28 @@ def fetch_tiktok_videos(request):
     response_data = response.json()
     
     return render(request, 'add_song.html', {'videos': response_data['data']['videos']})
+
+def spotify_login(request):
+    client_id = '50dc5ab5c541453c8d97147d2737bdb9'
+    redirect_uri = 'http://127.0.0.1:8000/spotify/callback/'
+    scope = 'user-read-playback-state user-modify-playback-state streaming'
+    auth_url = f'https://accounts.spotify.com/authorize?response_type=code&client_id={client_id}&scope={scope}&redirect_uri={redirect_uri}'
+    return redirect(auth_url)
+
+def spotify_callback(request):
+    code = request.GET.get('code')
+    url = 'https://accounts.spotify.com/api/token'
+    payload = {
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': settings.SPOTIFY_REDIRECT_URI,
+        'client_id': settings.SPOTIFY_CLIENT_ID,
+        'client_secret': settings.SPOTIFY_CLIENT_SECRET,
+    }
+    response = requests.post(url, data=payload)
+    response_data = response.json()
+    access_token = response_data.get('access_token')
+    refresh_token = response_data.get('refresh_token')
+    request.session['spotify_access_token'] = access_token
+    request.session['spotify_refresh_token'] = refresh_token
+    return redirect('find_songs')

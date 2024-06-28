@@ -36,4 +36,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('tiktok/login/', views.tiktok_login, name='tiktok_login'),
     path('tiktok/callback/', views.tiktok_callback, name='tiktok_callback'),
+    path('spotify/callback/', views.spotify_callback, name='spotify_callback'),
+    path('spotify/login/', views.spotify_login, name='spotify_login'),
 ]

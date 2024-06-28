@@ -20,6 +20,9 @@ LOGOUT_REDIRECT_URL = 'home'
 TIKTOK_CLIENT_KEY = 'sbawkami9jmc9ujkde'
 TIKTOK_CLIENT_SECRET = 'utJch2slKjpmY5ooj4XS6DEhlPC6wmP7'
 TIKTOK_REDIRECT_URI = 'http://127.0.0.1:8000/tiktok/callback/'
+SPOTIFY_CLIENT_ID = '50dc5ab5c541453c8d97147d2737bdb9'
+SPOTIFY_CLIENT_SECRET = '6de7f882cf0d4250a4f9b4b3fc387b48'
+SPOTIFY_REDIRECT_URI = 'http://127.0.0.1:8000/spotify/callback/'
 
 
 # Quick-start development settings - unsuitable for production
