@@ -11,13 +11,42 @@
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        nav {
+            width: 100%;
+            background-color: #f0f0f0;
+            padding: 10px 0; /* Adjusted padding to make the nav bar smaller */
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 2em; /* Adjusted for a smaller font size */
         }
         .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 100vh;
-            padding: 0 20px;
+            width: 100%;
+            max-width: 1425px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Adjusted margin to give space from the nav bar */
         }
         .mood {
             flex: 1;
@@ -25,18 +54,31 @@
             font-size: 2em;
             cursor: pointer;
             margin: 0 20px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .mood:hover {
+            background-color: #d0d0d0;
         }
         .song-container {
-            flex: 1;
+            flex: 2;
             text-align: center;
+            padding: 10px;
+        }
+        .song-container h2 {
+            font-size: 2em;
+            margin: 0;
+        }
+        .song-container p {
+            margin: 10px 0;
+            font-size: 1.2em;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Find Songs</h1>
-        <h2>{{ song.title }} by {{ song.artist }}</h2>
-    </header>
     <nav>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
@@ -85,7 +127,7 @@
             } else if (direction === 'right') {
                 mood = '{{ mood2 }}';
             }
-            
+
             fetch("{% url 'create_user_song_mood' %}", {
                 method: "POST",
                 headers: {
@@ -100,7 +142,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert('Mood saved successfully');
+                    window.location.reload();
                     // Optionally, you can add logic here to load the next song
                 } else if (data.status === 'not_authenticated') {
                     alert('You need to log in to save your mood');
@@ -128,4 +170,5 @@
             });
         });
     </script>
-    
+</body>
+</html>
