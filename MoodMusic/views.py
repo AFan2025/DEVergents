@@ -119,16 +119,22 @@ def profile(request, username):
     # Get the user object or return a 404 if the user does not exist
     user = get_object_or_404(User, username=username)
     
-    # Filter UserSongMoods objects for this user
-    user_song_moods = UserSongMoods.objects.filter(user=user)
+    # Get the search query if it exists
+    query = request.GET.get('q')
     
-    # Prepare the data to be returned
+    if query:
+        # Filter UserSongMoods objects based on the search query
+        user_song_moods = UserSongMoods.objects.filter((Q(user=user) & Q(song__title__icontains=query)) | (Q(user=user) & Q(moods__icontains=query)) | (Q(user=user) & Q(song__artist__icontains=query)))
+    else:
+        # If no search query, get all UserSongMoods for this user
+        user_song_moods = UserSongMoods.objects.filter(user=user)
+    
     context = {
         'username': user.username,
-        'user_song_moods': user_song_moods
+        'songs': user_song_moods,
+        'query': query,
     }
     
-    # Render the profile template with the context data
     return render(request, 'profile.html', context)
 
 class ProfileView(LoginRequiredMixin, View):
