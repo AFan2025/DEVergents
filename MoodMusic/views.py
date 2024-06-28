@@ -16,6 +16,9 @@ import json
 import requests
 from django.conf import settings
 
+def about(request):
+    return render(request, 'about.html')
+
 @login_required
 def create_user_song_mood(request):
     if request.method == 'POST':

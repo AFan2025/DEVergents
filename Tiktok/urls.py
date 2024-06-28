@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 from MoodMusic.views import ProfileView
 
 urlpatterns = [
+    path('about.html', views.about, name='about'), 
     path('create_user_song_mood/', views.create_user_song_mood, name='create_user_song_mood'),
     path('profile/<str:username>/', views.profile, name='profile'),
     path('find_songs/', views.find_songs, name='find_songs'),

@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            background-color: #983E3E;
+            color: white;
+            font-family: 'Inconsolata', monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: grey;
+            padding: 10px 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin-right: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #F3D9DC;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .team-member {
+            background-color: #F3D9DC;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .team-member img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .team-member h3 {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+    </nav>
+    <div class="container">
+        <h1>About Us</h1>
+        <p>We are a team of students from the University of Chicago participating in the 2024 TikTok TechJam Hackathon. Our team members are:</p>
+        <div class="team">
+            <div class="team-member">
+                <h3>Alex</h3>
+                <img src="{% static 'images/alex1.jpg' %}" alt="Alex">
+            </div>
+            <div class="team-member">
+                <h3>Alex</h3>
+                <img src="{% static 'images/alex2.jpg' %}" alt="Alex">
+            </div>
+            <div class="team-member">
+                <h3>Alex</h3>
+                <img src="{% static 'images/alex3.jpg' %}" alt="Alex">
+            </div>
+            <div class="team-member">
+                <h3>Olivia</h3>
+                <img src="{% static 'images/olivia.jpg' %}" alt="Olivia">
+            </div>
+            <div class="team-member">
+                <h3>Margaux</h3>
+                <img src="{% static 'images/margaux.jpg' %}" alt="Margaux">
+            </div>
+        </div>
+        <h2>Our Project</h2>
+        <p>For this hackathon, we have developed an innovative platform that allows users to classify and rate songs based on their moods. By integrating with TikTok, we aim to provide users with a seamless experience to explore and categorize their favorite tunes.</p>
+    </div>
+</body>
+</html>
