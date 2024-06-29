@@ -144,7 +144,7 @@ def add_friend(request):
         username = request.POST.get('username')
         if username:
             friend = get_object_or_404(User, username=username)
-            switch = Friendship.objects.filter(Q(friend1=friend, friend2=request.user))
+            switch = Friendship.objects.filter(Q(friend1=friend, friend2=request.user) | Q(friend1=request.user, friend2=friend))
             if switch.count() == 0 and friend != request.user:
                 Friendship.objects.get_or_create(friend1=request.user, friend2=friend)
                 print('success')
