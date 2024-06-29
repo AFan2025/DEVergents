@@ -14,6 +14,21 @@
             margin-top: 200px; /* Add margin to push the search bar down */
             padding-top: 200px; /* Add padding to separate it from the friends list */
         }
+    .stats {
+        margin-top: 50px;
+        margin-left: 250px;
+        margin-right: auto;
+        font-size: 1.5em; /* Adjust font size to make it smaller */
+        background-color: grey;
+        width: 50%; /* Adjust the width as needed */
+        max-height: 500px;
+        padding: 20px; /* Add padding for spacing inside the box */
+        border: 3px solid #983E3E; /* Cool border effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Cool box shadow effect */
+        text-align: center; /* Center the text */
+        border-radius: 10px; /* Add rounded corners */
+    }
+    
 </style>
 <body>
     <h1 class="big-heading">Profile of {{ username }}</h1>
@@ -85,8 +100,13 @@
 
         <!-- Content for Stats -->
         <section id="stats" class="mt-2">
-            <h2>Stats</h2>
-            <!-- Add stats content here -->
+            <h2>Stats for {{ username }}</h2>
+            <div class="container stats">
+                <p class="card-text">Number of songs rated: {{ num_songs_rated }}</p>
+                <p class="card-text">Number of moods: {{ num_moods }}</p>
+                <p class="card-text">Number of friends: {{ num_friends }}</p>
+            </div>
+            
         </section>
 
         <!-- Content for Friends -->

@@ -108,12 +108,18 @@ def profile(request, username):
         # If no search query, get all UserSongMoods for this user
         user_song_moods = UserSongMoods.objects.filter(user=user)
     friends = Friendship.objects.filter(Q(friend1=user) | Q(friend2=user))
+    num_songs_rated = user_song_moods.count()
+    num_moods = user_song_moods.values('moods').distinct().count()
+    num_friends = Friendship.objects.filter(Q(friend1=user) | Q(friend2=user)).count()
     
     context = {
         'username': user.username,
         'songs': user_song_moods,
         'query': query,
         'friends': friends,
+        'num_songs_rated': num_songs_rated,
+        'num_moods': num_moods,
+        'num_friends': num_friends,
     }
     
     return render(request, 'profile.html', context)
