@@ -147,10 +147,8 @@ def add_friend(request):
             switch = Friendship.objects.filter(Q(friend1=friend, friend2=request.user) | Q(friend1=request.user, friend2=friend))
             if switch.count() == 0 and friend != request.user:
                 Friendship.objects.get_or_create(friend1=request.user, friend2=friend)
-                print('success')
                 return redirect('profile', username=request.user.username)
             else:
-                print('failed')
                 return redirect('profile', username=request.user.username)
     return redirect('profile', username=request.user.username)
 
