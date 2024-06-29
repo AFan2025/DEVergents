@@ -86,7 +86,23 @@
         <!-- Content for Friends? -->
         <section id="friends" class="mt-2">
             <h2>Friends?</h2>
-            <!-- Add friends content here -->
+             <div class="container">
+                <div class="row">
+                    {% for friend in friends %}
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <a href="{% if friend.friend1 != user %}{% url 'profile' friend.friend1.username %}{% else %}{% url 'profile' friend.friend2.username %}{% endif %}" class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{% if friend.friend1 != user %}{{ friend.friend1 }}{% else %}{{ friend.friend2 }}{% endif %}</h5>
+                                </div>
+                            </a>
+                        </div>
+                    {% empty %}
+                        <div class="col-12">
+                            <p>No friends found.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </section>
     </div>
 

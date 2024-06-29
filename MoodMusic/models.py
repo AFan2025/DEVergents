@@ -19,6 +19,10 @@ class UserSongMoods(models.Model):
     class Meta:
         unique_together = ('user', 'song', 'moods')
 
+class Friendship(models.Model):
+    friend1 = models.ForeignKey(User, on_delete = models.CASCADE, related_name='friend1')
+    friend2 = models.ForeignKey(User, on_delete = models.CASCADE, related_name='friend2')
+
 
 def separate_moods(s):
     return s.split(',')

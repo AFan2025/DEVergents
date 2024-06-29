@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View
-from MoodMusic.models import UserSongMoods, Song
+from MoodMusic.models import UserSongMoods, Song, Friendship
 import random
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, JsonResponse
@@ -131,11 +131,13 @@ def profile(request, username):
     else:
         # If no search query, get all UserSongMoods for this user
         user_song_moods = UserSongMoods.objects.filter(user=user)
+    friends = Friendship.objects.filter(Q(friend1=user) | Q(friend2=user))
     
     context = {
         'username': user.username,
         'songs': user_song_moods,
         'query': query,
+        'friends': friends,
     }
     
     return render(request, 'profile.html', context)
