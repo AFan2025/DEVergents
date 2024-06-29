@@ -10,11 +10,24 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 import json
 import requests
 from django.conf import settings
+from django.contrib.auth import login
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
 def about(request):
     return render(request, 'about.html')
@@ -80,43 +93,6 @@ def add_song(request):
     
     return render(request, 'add-song.html')
 
-def test(request):
-    try:
-        p = UserSongMoods.objects.get(moods='Happy')
-    except UserSongMoods.DoesNotExist:
-        raise Http404("Usersongmood does not exist")
-    return HttpResponse(p.user.username)
-
-def get_swipe_info(request):
-    try:
-        song_count = Song.objects.count()
-        mood_count = UserSongMoods.objects.count()
-        
-        if song_count == 0 or mood_count == 0:
-            raise Http404("No songs or moods available")
-        
-        random_song_index = random.randint(0, song_count - 1)
-        random_song = Song.objects.all()[random_song_index]
-
-        random_mood1_index = random.randint(0, mood_count - 1)
-        random_mood2_index = random.randint(0, mood_count - 1)
-        random_mood1 = UserSongMoods.objects.all()[random_mood1_index].moods
-        random_mood2 = UserSongMoods.objects.all()[random_mood2_index].moods
-
-        song_info = f'{random_song.title} by {random_song.artist}'
-        response_text = f'{song_info}-- Do you think it is more {random_mood1} or {random_mood2}?'
-        
-    except UserSongMoods.DoesNotExist:
-        raise Http404("Usersongmood does not exist")
-
-    data = {
-        'song_info': song_info,
-        'mood_options': [random_mood1, random_mood2],
-        'message': response_text
-    }
-
-    # Return the data as JSON
-    return JsonResponse(data)
 
 def profile(request, username):
     # Get the user object or return a 404 if the user does not exist
@@ -161,6 +137,20 @@ class ProfileView(LoginRequiredMixin, View):
 
         # Render the profile template with the context data
         return render(request, 'profile.html', context)
+    
+@login_required
+def add_friend(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        if username:
+            friend = get_object_or_404(User, username=username)
+            switch = Friendship.objects.filter(Q(friend1=friend, friend2=request.user) | Q(friend1=request.user, friend2=friend))
+            if switch != None:
+                Friendship.objects.get_or_create(friend1=request.user, friend2=friend)
+                return redirect('profile', username=request.user.username)
+            else:
+                return("You've already added this friend!")
+    return redirect('profile', username=request.user.username)
 
 def song_search(request):
     query = request.GET.get('q', '')
