@@ -65,6 +65,9 @@ def find_songs(request):
     random_mood2_index = random.randint(0, mood_count - 1)
     random_mood1 = UserSongMoods.objects.all()[random_mood1_index].moods
     random_mood2 = UserSongMoods.objects.all()[random_mood2_index].moods
+    while random_mood1==random_mood2:
+        random_mood2_index = random.randint(0, mood_count - 1)
+        random_mood2 = UserSongMoods.objects.all()[random_mood2_index].moods
     return render(request, 'find-songs.html', {
         'song': random_song,
         'mood1': random_mood1,
