@@ -145,11 +145,13 @@ def add_friend(request):
         if username:
             friend = get_object_or_404(User, username=username)
             switch = Friendship.objects.filter(Q(friend1=friend, friend2=request.user) | Q(friend1=request.user, friend2=friend))
-            if switch != None:
+            if switch.count() == 0:
                 Friendship.objects.get_or_create(friend1=request.user, friend2=friend)
+                print('success')
                 return redirect('profile', username=request.user.username)
             else:
-                return("You've already added this friend!")
+                print('failed')
+                return redirect('profile', username=request.user.username)
     return redirect('profile', username=request.user.username)
 
 def song_search(request):
