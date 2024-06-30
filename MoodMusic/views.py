@@ -17,6 +17,7 @@ import json
 import requests
 from django.conf import settings
 from django.contrib.auth import login
+from django.contrib import messages
 
 def signup(request):
     if request.method == 'POST':
@@ -151,14 +152,18 @@ class ProfileView(LoginRequiredMixin, View):
 def add_friend(request):
     if request.method == "POST":
         username = request.POST.get('username')
+
         if username:
+            if len(User.objects.filter(username=username)) == 0:
+                return redirect('profile', username=request.user.username)
             friend = get_object_or_404(User, username=username)
             switch = Friendship.objects.filter(Q(friend1=friend, friend2=request.user) | Q(friend1=request.user, friend2=friend))
-            if switch.count() == 0 and friend != request.user:
+            if switch.count() == 0 and friend != request.user and friend.exists():
                 Friendship.objects.get_or_create(friend1=request.user, friend2=friend)
                 return redirect('profile', username=request.user.username)
             else:
                 return redirect('profile', username=request.user.username)
+            
     return redirect('profile', username=request.user.username)
 
 def song_search(request):
