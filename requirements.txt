@@ -1,0 +1,4 @@
+Django>=3.2,<4.0
+requests
+django-crispy-forms
+django-registration-redux
