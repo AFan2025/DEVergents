@@ -31,44 +31,43 @@
     
 </style>
 <body>
-    <h1 class="big-heading">Profile</h1>
-    <!-- navbar -->
-    <nav class="navbar navbar-expand-md navbar-light fixed-top eggshell-bg">
-        <div class="container-xxl">
-            <!-- navbar brand / title -->
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <span class="text-secondary fw-bold">
-                    Classify Home
-                </span>
-            </a>
-            <!-- toggle button for mobile nav -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <!-- navbar links -->
-            <div class="collapse navbar-collapse" id="main-nav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#songs">My Songs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#stats">Stats</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#friends">Friends</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">About</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <nav class="toolbar">
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="find_songs.html">Find Songs</a></li>
+            <li><a href="{% url 'add_song' %}">Add A Song</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
     </nav>
 
-    <!DOCTYPE html>
-    <html lang="en">
+
+    <h1 class="big-heading">Profile</h1>
+    <!-- navbar -->
+
     <head>
+
+        <style>
+            div.sticky {
+              position: -webkit-sticky;
+              position: sticky;
+              top: 30px;
+              padding: 10px;
+              margin-top: -100px;
+              font-size: 40px;
+              z-index: 50;
+              color: maroon; 
+            }
+            </style>
+            </head>
+            <body>
+            
+            <div class="sticky">My songs</div>
+        </style>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search Form</title>
@@ -76,8 +75,17 @@
             input.form-control[name="q"] {
                 font-family: 'Inconsolata', monospace; /* Change to your desired font */
                 color: black; 
-                border-color: black; 
-                border-radius: 20px 45px;; 
+                border-left-color: black; 
+                border-bottom-color: black; 
+                border-top-color: black; 
+                border-right-color: white; 
+                border-radius: 20px 45px;;
+             
+                background: url(med.jpg);
+                margin-top: 200px;  
+                position: -webkit-sticky;
+                position: sticky;
+                top: 100px;
             }
         </style>
     </head>
@@ -85,6 +93,7 @@
         <div class="container mt-5 pt-5">
             <form method="GET" action="{% url 'profile' username %}" class="mb-4">
                 <div class="input-group">
+            
                     <input type="text" name="q" class="form-control" placeholder="FIND SONGS OR MOODS WITHIN PROFILE" value="{% if query %}{{ query }}{% endif %}">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
@@ -95,7 +104,6 @@
     
         <!-- Content for My Songs -->
         <section id="songs" class="mt-2">
-            <h2>My Songs</h2>
             <div class="container">
                 <div class="row">
                     {% for user_song_mood in songs %}

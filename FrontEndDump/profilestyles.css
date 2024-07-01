@@ -26,8 +26,8 @@ header {
     width: 100%;
     top: 50%;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .title_wrapper h1 {
@@ -88,7 +88,6 @@ header {
     font-family: 'Inconsolata', monospace;
     border-radius: 0; /* Remove border radius for sharp corners */
     width: 200px;
-    font-family: 'Inconsolata', monospace; /* Match the font */
 }
 
 .login_button {
@@ -100,7 +99,7 @@ header {
     border: none;
     cursor: url("cursor.png"), auto;
     text-transform: uppercase;
-    font-family: 'Inconsolata', monospace; /* Match the font */
+    font-family: 'Inconsolata', monospace;
 }
 
 .login_button:hover {
@@ -138,14 +137,14 @@ section {
 }
 
 section h2 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inconsolata', monospace;
 }
 
 body {
-    background-color: white; /* Change background color to red */
+    background-color: white;
     font-family: 'Inconsolata', monospace;
-    margin: 0;
     padding: 0;
+    margin-top: 0px;
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
@@ -156,87 +155,122 @@ body:hover {
     cursor: url("cursor.png"), auto;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-}
-
 .btn {
     display: inline-block;
     padding: .75rem 1.25rem;
-    border-radius: 45px 20px;
-    border-color: black; 
-    color: #fff;
+    border-radius: 20px 45px;
+    border: 1px solid black;
+    color: white;
     text-transform: uppercase;
     font-size: 1rem;
     letter-spacing: .15rem;
     transition: all .3s;
     background-color: white;
-    position: relative;
+    position: fixed;
     overflow: hidden;
     z-index: 1;
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: white;
-      border-color: black;
-      border-radius: 45px 20px;
-      z-index: -2;
-    }
-    &:before {
-      content: '';
-      background-color: #000;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 100%;
-      background-color: white;
-      border-color: white;
-      transition: all .3s;
-      border-radius: 45px 20px;
-      z-index: -1;
-    }
-    &:hover {
-      color: white;
-      background-color: white;
-      &:before {
-        width: 100%;
-      }
-    }
+    margin-top: 200 px;
+    border-left-color: white; 
+    border-bottom-color: black; 
+    border-top-color: black; 
+    border-right-color: black; 
+    margin-top: 200px;
+    
 }
-  * {
+.btn:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    border-radius: 20px 45px;
+    border-left-color: white; 
+    border-bottom-color: black; 
+    border-top-color: black; 
+    border-right-color: black; 
+    z-index: -2;
+    margin-top: 200px;
+}
+.btn:before {
+    content: '';
+    background-color: #000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: white;
+    border-radius: 20px 45px;
+    transition: all .3s;
+    z-index: -1;
+    border-left-color: white; 
+    border-bottom-color: black; 
+    border-top-color: black; 
+    border-right-color: black; 
+
+    margin-top: 200px;
+}
+.btn:hover {
+    color: maroon; 
+    background-color: white;
+    border-left-color: white; 
+    border-bottom-color: black; 
+    border-top-color: black; 
+    border-right-color: black; 
+    
+}
+.btn:hover:before {
+    width: 100%;
+    margin-top: 200px;
+    border-left-color: white; 
+    border-bottom-color: black; 
+    border-top-color: black; 
+    border-right-color: black; 
+    margin-top: 200px;
+}
+.btn:hover:after {
+    width: 100%; 
+    border-left-color: white; 
+    border-bottom-color: black; 
+    border-top-color: black; 
+    border-right-color: black; 
+    margin-top: 200px;
+}
+
+* {
     font-family: 'Inconsolata', monospace;
     text-decoration: none;
     font-size: 20px;
-  }
-  .container {
+}
+
+.container {
     padding-top: 50px;
     margin: 0 auto;
     width: 100%;
     text-align: center;
-  }
-  h1 {
+    
+}
+
+h1 {
     text-transform: uppercase;
     font-size: .8rem;
     margin-bottom: 2rem;
     color: black;
-  }
-  span {
+}
+
+span {
     display: block;
     margin-top: 2rem;
     font-size: .7rem;
     color: black;
-    a {
-      font-size: .7rem;
-      color: black;
-      text-decoration: underline;
-    }
-  }
+}
+span a {
+    font-size: .7rem;
+    color: black;
+    text-decoration: underline;
+}
 
 .data-container {
     background: #ffebee;
@@ -245,6 +279,14 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.search-form-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px; /* Adjust the value as needed to control the sticky position */
+    z-index: 10; /* Ensure it stays on top of other elements */
+}
+
 
 .toolbar {
     display: flex;
@@ -291,7 +333,7 @@ body {
 }
 
 main {
-    padding: 20px;
+    padding: 0px;
     text-align: center;
     width: 100%;
     margin-top: 120px;
@@ -329,6 +371,7 @@ main {
     font-size: 11em;
     margin: 0;
     padding: 0;
+    font-family: 'Inconsolata', monospace;
     cursor: url("cursor1.png"), auto;
 }
 
@@ -337,8 +380,9 @@ main {
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 40px;
     border: none; 
+    background: url(images/med.jpg);
 }
 
 .vertical-text {
@@ -353,34 +397,14 @@ main {
     border: 2px solid #CCFCCB;
 }
 
-.navbar {
-    font-size: 1.25rem; /* Make navbar text larger */
-    font-weight: bold; /* Bold text */
-}
-
-.navbar-nav {
-    width: 100%;
-    justify-content: space-around; /* Evenly spread the navbar items */
-}
-
-.navbar-brand {
-    font-size: 1.5rem; /* Make brand text larger */
-    font-weight: bold; /* Bold brand text */
-}
-
-.nav-item .nav-link {
-    padding: 0.5rem 1rem; /* Increase padding for larger clickable area */
-}
-
-body {
-    padding-top: 100px; /* Adjust to height of the fixed navbar */
-}
 
 .big-heading {
-    font-size: 4rem; /* Customize the size as needed */
+    font-size: 13rem; /* Customize the size as needed */
     font-weight: normal;
-    text-align: center;
+    text-align: left;
+    padding: 30 px; 
     color: black; 
+
     position: relative; /* For the pseudo-elements positioning */
 }
 
@@ -404,3 +428,46 @@ body {
     bottom: -10px; /* Position the underline */
 }
 
+.toolbar {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    height: 40px;
+    padding-top: 0px;
+    justify-content: center;
+    z-index: 1;
+    cursor: url("images/cursor.png"), auto;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.toolbar ul li {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.toolbar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1.5em;
+    transition: all 0s;
+}
+
+.toolbar a {
+    color: #000;
+    text-decoration: none;
+    transition: color 0.0s;
+}
+
+.toolbar a:hover {
+    text-decoration: overline underline;
+    cursor: url("images/cursor1.png"), auto;
+}
