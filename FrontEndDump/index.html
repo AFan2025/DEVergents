@@ -15,6 +15,7 @@
     <nav class="toolbar">
         <ul>
             {% if user.is_authenticated %}
+                <li><a href="about.html">About</a></li>
                 <li><a href="{% url 'profile' user.username %}">Profile</a></li>
                 <li><a href="{% url 'find_songs' %}">Find Songs</a></li>
                 <li><a href="{% url 'add_song' %}">Add A Song</a></li>
@@ -28,7 +29,7 @@
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}
-            <li><a href="about.html">About</a></li>
+           
         </ul>
     </nav>
 

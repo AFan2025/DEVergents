@@ -142,7 +142,7 @@ section h2 {
 }
 
 body {
-    background-color: rgb(127, 55, 55); /* Change background color to red */
+    background-color: white; /* Change background color to red */
     font-family: 'Inconsolata', monospace;
     margin: 0;
     padding: 0;
