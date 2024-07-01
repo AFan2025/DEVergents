@@ -31,7 +31,7 @@
     
 </style>
 <body>
-    <h1 class="big-heading">Profile of {{ username }}</h1>
+    <h1 class="big-heading">Profile</h1>
     <!-- navbar -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top eggshell-bg">
         <div class="container-xxl">
@@ -66,15 +66,33 @@
         </div>
     </nav>
 
-    <!-- Search Form -->
-    <div class="container mt-5 pt-5">
-        <form method="GET" action="{% url 'profile' username %}" class="mb-4">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search for songs or moods within your profile" value="{% if query %}{{ query }}{% endif %}">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </form>
-
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Form</title>
+        <style>
+            input.form-control[name="q"] {
+                font-family: 'Inconsolata', monospace; /* Change to your desired font */
+                color: black; 
+                border-color: black; 
+                border-radius: 20px 45px;; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container mt-5 pt-5">
+            <form method="GET" action="{% url 'profile' username %}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="FIND SONGS OR MOODS WITHIN PROFILE" value="{% if query %}{{ query }}{% endif %}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </body>
+    </html>
+    
         <!-- Content for My Songs -->
         <section id="songs" class="mt-2">
             <h2>My Songs</h2>
