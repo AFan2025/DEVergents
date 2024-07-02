@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 import re
 import argparse
+from nltk.corpus import wordnet as wn
 
 ARTICLE_BODY = ['body__inner-container']
 LINK_CLASS = ["SummaryItemImageLink-dshqxb cPpCwE summary-item__image-link summary-item-tracking__image-link"]
@@ -27,7 +28,7 @@ class pitchforkScraper:
         self.end_idx = end_idx
 
     #parses through individual articles
-    def article_parser(link):
+    def article_parser(self, link):
         count_dict = {}
         
         #request to pitchfork
@@ -74,6 +75,7 @@ class pitchforkScraper:
                 #gets the link
                 article = tracks_pages[idx].attrs['href']
                 article_link = self.base_link + article
+                print(article_link)
 
                 #calls the other function to parse the word count of every article
                 article_counts = self.article_parser(article_link)
@@ -94,16 +96,28 @@ def main(args):
     result = music_adjectives.page_parser()
     return result
 
-if "__name__" == "__main__":
+if True:
     parser = argparse.ArgumentParser(description="helps out")
 
     parser.add_argument('--start', type=int, required=True, help='the page you want to start')
     parser.add_argument('--end', type=int, required=True, help='the page you want to end at')
 
     args = parser.parse_args()
-    main(args)
+    res = main(args)
+    sorteddict = {k: v for k, v in sorted(res.items(), key=lambda item: item[1])}
+    wordz = list(sorteddict.keys())
+    words = wordz[::-1]
+    fin = []
+    for w in words:
+        if wn.synsets(w):
+            tmp = wn.synsets(w)[0].pos()
+            if tmp == 'a':
+                fin.append(w)
+    print(fin[:100])
 
-    ##the way to run this would be to call it python3 web_scraper_test.py --start (number) --end (number)
+
+
+    ##the way to run this would be to call it python3 web_scraper.py --start (number) --end (number)
 
 
 
