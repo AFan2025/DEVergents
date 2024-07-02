@@ -166,7 +166,7 @@ body:hover {
     letter-spacing: .15rem;
     transition: all .3s;
     background-color: white;
-    position: fixed;
+    position: sticky;
     overflow: hidden;
     z-index: 1;
     margin-top: 200 px;
@@ -280,14 +280,6 @@ span a {
     align-items: center;
 }
 
-.search-form-container {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 100px; /* Adjust the value as needed to control the sticky position */
-    z-index: 10; /* Ensure it stays on top of other elements */
-}
-
-
 .toolbar {
     display: flex;
     position: fixed;
@@ -382,7 +374,6 @@ main {
     flex-wrap: wrap;
     margin-top: 40px;
     border: none; 
-    background: url(images/med.jpg);
 }
 
 .vertical-text {
