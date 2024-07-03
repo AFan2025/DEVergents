@@ -9,29 +9,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'profilestyles.css' %}">
 </head>
+
 <style>
     .friend-search {
             margin-top: 200px; /* Add margin to push the search bar down */
             padding-top: 200px; /* Add padding to separate it from the friends list */
         }
     .stats {
-        margin-top: 50px;
-        margin-left: 250px;
+        margin-top: -150px;
+        margin-left: 35px;
         margin-right: auto;
-        font-size: 1.5em; /* Adjust font size to make it smaller */
-        background-color: grey;
-        width: 50%; /* Adjust the width as needed */
-        max-height: 500px;
+        font-size: 4em; /* Adjust font size to make it smaller */
+        background-color: white;
+        width: 90%; /* Adjust the width as needed */
+        max-height: 175px;
         padding: 20px; /* Add padding for spacing inside the box */
-        border: 3px solid #983E3E; /* Cool border effect */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Cool box shadow effect */
-        text-align: center; /* Center the text */
-        border-radius: 10px; /* Add rounded corners */
+        text-align: left; /* Center the text */
+    
     }
     
 </style>
 <body>
 
+
+<div class="mainParent">
     <nav class="toolbar">
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
@@ -43,131 +45,121 @@
 
 
     <h1 class="big-heading">Profile</h1>
-    <!-- navbar -->
 
-    <head>
-
-        <style>
-            div.sticky {
-              position: -webkit-sticky;
-              position: sticky;
-              top: 30px;
-              padding: 10px;
-              margin-top: -100px;
-              font-size: 40px;
-              z-index: 50;
-              color: maroon; 
-            }
-            </style>
-            </head>
-            <body>
-            
-            <div class="sticky">My songs</div>
-        </style>
-        
-        <!DOCTYPE html>
-        <html lang="en">
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Search Form</title>
-        <style>
-            input.form-control[name="q"] {
-                font-family: 'Inconsolata', monospace; /* Change to your desired font */
-                color: black; 
-                border-left-color: black; 
-                border-bottom-color: black; 
-                border-top-color: black; 
-                border-right-color: white; 
-                border-radius: 20px 45px;;
-             
-                background: url(med.jpg);
-                margin-top: 200px;  
-                position: -webkit-sticky;
-                position: sticky;
-                top: 100px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container mt-5 pt-5">
-            <form method="GET" action="{% url 'profile' username %}" class="mb-4">
-                <div class="input-group">
-            
-                    <input type="text" name="q" class="form-control" placeholder="FIND SONGS OR MOODS WITHIN PROFILE" value="{% if query %}{{ query }}{% endif %}">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </form>
+  
+    <div id="content01" class="content">
+      <br><br>   
+      <div class="header" id="header01">My songs</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Form</title>
+    <form method="GET" action="{% url 'profile' username %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="FIND SONGS OR MOODS WITHIN PROFILE" value="{% if query %}{{ query }}{% endif %}">
+            <button type="submit" class="btn btn-primary">Search</button>
         </div>
-    </body>
-    </html>
-    
-        <!-- Content for My Songs -->
-        <section id="songs" class="mt-2">
-            <div class="container">
-                <div class="row">
-                    {% for user_song_mood in songs %}
-                        <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ user_song_mood.song.title }} by {{ user_song_mood.song.artist }}</h5>
-                                    <p class="card-text">Moods: {{ user_song_mood.moods }}</p>
+    </form>
+    <style>
+        input.form-control[name="q"] {
+            font-family: 'Inconsolata', monospace; /* Change to your desired font */
+            color: black; 
+            border-left-color: black; 
+            border-bottom-color: black; 
+            border-top-color: black; 
+            border-right-color: white; 
+            border-radius: 20px 45px;;
+            background: url(med.jpg);
+            margin-top: -50px;  
+            margin-left: 150px; 
+            position: -webkit-sticky;
+            position: sticky;
+            top: 100px;
+        }
+    </style>
+            <section id="songs" class="mt-2">
+                <div class="container">
+                    <div class="row">
+                        {% for user_song_mood in songs %}
+                            <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ user_song_mood.song.title }} by {{ user_song_mood.song.artist }}</h5>
+                                        <p class="card-text">Moods: {{ user_song_mood.moods }}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% empty %}
-                        <div class="col-12">
-                            <p>No songs found.</p>
-                        </div>
-                    {% endfor %}
+                        {% empty %}
+                            <div class="col-12">
+                                <p>No songs found.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Content for Stats -->
+            </section>
+    <br><br>
+      <div class="header" id="header02">Stats</div>
+      <div id="content02" class="content">
+        <br><br>
         <section id="stats" class="mt-2">
-            <h2>Stats for {{ username }}</h2>
             <div class="container stats">
                 <p class="card-text">Number of songs rated: {{ num_songs_rated }}</p>
                 <p class="card-text">Number of moods: {{ num_moods }}</p>
                 <p class="card-text">Number of friends: {{ num_friends }}</p>
             </div>
-            
         </section>
 
-        <!-- Content for Friends -->
-        <section id="friends" class="mt-2">
-            <h2>Friends</h2>
-             <div class="container friendz">
-                <div class="row">
-                    {% for friend in friends %}
-                        <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <a href="{% if friend.friend1 != user %}{% url 'profile' friend.friend1.username %}{% else %}{% url 'profile' friend.friend2.username %}{% endif %}" class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">{% if friend.friend1 != user %}{{ friend.friend1 }}{% else %}{{ friend.friend2 }}{% endif %}</h5>
-                                </div>
-                            </a>
-                        </div>
-                    {% empty %}
-                        <div class="col-12">
-                            <p>No friends found.</p>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="container friend-search mt-4">
-                <h3>Add a Friend</h3>
-                <form method="POST" action="{% url 'add_friend' %}">
-                    {% csrf_token %}
-                    <div class="input-group mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Search for users to add as friends">
-                        <button type="submit" class="btn btn-primary">Add Friend</button>
+        <div class="header" id="header03">Friends</div>
+        <div id="content03" class="content">
+          <br><br> 
+          <div class="container friendz">
+            <div class="row">
+                {% for friend in friends %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <a href="{% if friend.friend1 != user %}{% url 'profile' friend.friend1.username %}{% else %}{% url 'profile' friend.friend2.username %}{% endif %}" class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{% if friend.friend1 != user %}{{ friend.friend1 }}{% else %}{{ friend.friend2 }}{% endif %}</h5>
+                            </div>
+                        </a>
                     </div>
-                </form>
+                {% empty %}
+                    <div class="col-12">
+                        <p>No friends found.</p>
+                    </div>
+                {% endfor %}
             </div>
-        </section>
+        </div>
+        <div class="container friend-search mt-4">
+            <h3>Add a Friend</h3>
+            <form method="POST" action="{% url 'add_friend' %}">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" name="username" class="form-control" placeholder="Search for users to add as friends">
+                    <button type="submit" class="btn btn-primary">Add Friend</button>
+                </div>
+            </form>
+            <style>
+                input.form-control[name="q"] {
+                    font-family: 'Inconsolata', monospace; /* Change to your desired font */
+                    color: black; 
+                    border-left-color: black; 
+                    border-bottom-color: black; 
+                    border-top-color: black; 
+                    border-right-color: white; 
+                    border-radius: 20px 45px;;
+                    background: url(med.jpg);
+                    margin-top: -50px;  
+                    margin-left: 150px; 
+                    position: -webkit-sticky;
+                    position: sticky;
+                    top: 100px;
+                }
+            </style>
+        </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
+  
+  

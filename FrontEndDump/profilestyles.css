@@ -4,19 +4,149 @@ header {
     height: 100vh;
 }
 
-.container {
-    clip: rect(0, auto, auto, 0);
-    overflow: hidden;
+.big-heading {
+    font-size: 13rem; /* Customize the size as needed */
+    font-weight: normal;
+    text-align: left;
+    padding: 30 px; 
+    color: black; 
+
+    position: relative; /* For the pseudo-elements positioning */
+}
+
+.big-heading::before,
+.big-heading::after {
+    font-family: 'Inconsolata', monospace;
+    color: black; 
+    content: "";
     position: absolute;
-    height: 100vh;
     left: 0;
+    right: 0;
+    height: 2px;
+    background-color: white; /* Color of the line */
+}
+
+.big-heading::before {
+    top: -10px; /* Position the overline */
+}
+
+.big-heading::after {
+    bottom: -10px; /* Position the underline */
+}
+
+.toolbar {
+    display: flex;
+    position: fixed;
     width: 100%;
+    background: #fff;
+    height: 30px;
+    padding-top: 0px;
+    justify-content: center;
+    z-index: 1;
+    cursor: url("cursor.png"), auto;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.toolbar ul li {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.toolbar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 1.5em;
+    transition: all 0s;
+}
+
+.toolbar a {
+    color: #000;
+    text-decoration: none;
+    transition: color 0.0s;
+}
+
+.toolbar a:hover {
+    text-decoration: overline underline;
+    cursor: url("cursor1.png"), auto;
+}
+
+
+
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #222;
+  }
+
+  .mainParent {
+    height: 100%;
+    width: 100%;
+  }
+  .mainParent{margin:0.5em}
+  .header {
+    position: sticky;
+    padding: .5em;
+    color: maroon;
+    font-size: 30px;
+    text-align: left;
+  }
+  #header01 {
+    top: 1em;
+    margin-top: -170px;
+  }
+  #header02 {
+    top: 2em;
+    margin-left: 45px; 
+    margin-top: -440px; 
+  }
+  #header03 {
+    top: 3em;
+    margin-left: 45px; 
+    margin-top: -700px; 
+  }
+
+.content{text-align:center}
+
+.container {
+    padding-top: 0px;
+    margin: 0 auto;
+    width: 88%;
+    text-align: center;
+    border-color: #000;
+    border-width: 1px;
+    border-style: solid;
+    
+}
+
+.container {
+    clip: rect(0, 1000, 100, 0);
+    overflow: scroll;
+    position: absolute;
+    margin-top: -50px;
+    margin-left: 35px; 
+    height: 50vh;
+    right: 200px;
+    left: 150px;
     -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);
 }
 
 .container_solid {
-    background: white;
+    background: black;
     top: 0;
+    border: #000;
 }
 
 .title_wrapper {
@@ -169,12 +299,11 @@ body:hover {
     position: sticky;
     overflow: hidden;
     z-index: 1;
-    margin-top: 200 px;
     border-left-color: white; 
     border-bottom-color: black; 
     border-top-color: black; 
     border-right-color: black; 
-    margin-top: 200px;
+    margin-top: -50px;
     
 }
 .btn:after {
@@ -191,7 +320,7 @@ body:hover {
     border-top-color: black; 
     border-right-color: black; 
     z-index: -2;
-    margin-top: 200px;
+
 }
 .btn:before {
     content: '';
@@ -210,7 +339,6 @@ body:hover {
     border-top-color: black; 
     border-right-color: black; 
 
-    margin-top: 200px;
 }
 .btn:hover {
     color: maroon; 
@@ -228,7 +356,7 @@ body:hover {
     border-bottom-color: black; 
     border-top-color: black; 
     border-right-color: black; 
-    margin-top: 200px;
+
 }
 .btn:hover:after {
     width: 100%; 
@@ -236,7 +364,6 @@ body:hover {
     border-bottom-color: black; 
     border-top-color: black; 
     border-right-color: black; 
-    margin-top: 200px;
 }
 
 * {
@@ -245,13 +372,7 @@ body:hover {
     font-size: 20px;
 }
 
-.container {
-    padding-top: 50px;
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
-    
-}
+
 
 h1 {
     text-transform: uppercase;
@@ -280,49 +401,6 @@ span a {
     align-items: center;
 }
 
-.toolbar {
-    display: flex;
-    position: fixed;
-    width: 100%;
-    background: #fff;
-    height: 30px;
-    padding-top: 20px;
-    justify-content: center;
-    z-index: 1;
-    cursor: url("cursor.png"), auto;
-}
-
-.toolbar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.toolbar ul li {
-    margin: 0 100px;
-    text-align: center;
-}
-
-.toolbar ul li a {
-    color: #000;
-    text-decoration: none;
-    font-size: 1.5em;
-    transition: all 0s;
-}
-
-.toolbar a {
-    color: #000;
-    text-decoration: none;
-    transition: color 0.0s;
-}
-
-.toolbar a:hover {
-    text-decoration: overline underline;
-    cursor: url("cursor1.png"), auto;
-}
 
 main {
     padding: 0px;
@@ -376,48 +454,7 @@ main {
     border: none; 
 }
 
-.vertical-text {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-size: 2em;
-}
 
-.album-cover img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #CCFCCB;
-}
-
-
-.big-heading {
-    font-size: 13rem; /* Customize the size as needed */
-    font-weight: normal;
-    text-align: left;
-    padding: 30 px; 
-    color: black; 
-
-    position: relative; /* For the pseudo-elements positioning */
-}
-
-.big-heading::before,
-.big-heading::after {
-    font-family: 'Inconsolata', monospace;
-    color: black; 
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: white; /* Color of the line */
-}
-
-.big-heading::before {
-    top: -10px; /* Position the overline */
-}
-
-.big-heading::after {
-    bottom: -10px; /* Position the underline */
-}
 
 .toolbar {
     display: flex;
@@ -462,3 +499,4 @@ main {
     text-decoration: overline underline;
     cursor: url("images/cursor1.png"), auto;
 }
+
