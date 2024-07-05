@@ -115,7 +115,7 @@ body {
   #header03 {
     top: 3em;
     margin-left: 45px; 
-    margin-top: -700px; 
+    margin-top: -760px; 
   }
 
 .content{text-align:center}
@@ -130,6 +130,8 @@ body {
     border-style: solid;
     
 }
+
+
 
 .container {
     clip: rect(0, 1000, 100, 0);
@@ -443,15 +445,6 @@ main {
     padding: 0;
     font-family: 'Inconsolata', monospace;
     cursor: url("cursor1.png"), auto;
-}
-
-.find-songs-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: 40px;
-    border: none; 
 }
 
 
