@@ -47,9 +47,9 @@
         <nav class="toolbar">
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="find_songs.html">Find Songs</a></li>
+                <li><a href="{% url 'find_songs' %}">Find Songs</a></li>
                 <li><a href="{% url 'add_song' %}">Add A Song</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
             </ul>
         </nav>
         <h1 class="big-heading">Profile</h1>

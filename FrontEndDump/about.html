@@ -5,42 +5,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #983E3E;
-            color: white;
+            background-color: white;
+            color: black;
             font-family: 'Inconsolata', monospace;
             margin: 0;
             padding: 0;
         }
 
-        nav {
-            background-color: grey;
-            padding: 10px 20px;
+        .toolbar {
+            display: flex;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            height: 50px;
+            padding-top: 0px;
+            justify-content: center;
+            z-index: 1;
         }
 
-        nav a {
-            color: white;
+        .toolbar ul {
+            list-style: none;
+            padding: 0;
+            margin: .25;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .toolbar ul li {
+            margin: 0 100px;
+            text-align: center;
+        }
+
+        .toolbar ul li a {
+            color: #000;
             text-decoration: none;
-            font-size: 1.2em;
-            margin-right: 20px;
+            font-size: 2em;
+            transition: all 0s; 
+        }
+        .toolbar a:hover {
+            text-decoration: overline underline; 
+            cursor: url("cursor1.png"), auto;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        .big-heading {
+            font-size: 17rem; /* Customize the size as needed */
+            font-weight: normal;
+            text-align: left;
+            color: black; 
+            margin-top: 5px; /* Add space to avoid overlap with the toolbar */
+            padding: 30px 0; 
+            position: relative; /* For the pseudo-elements positioning */
+        }
+
+        .big-heading::before,
+        .big-heading::after {
+            font-family: 'Inconsolata', monospace;
+            color: black; 
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+
+        }
+
+        .big-heading::before {
+            top: -10px; /* Position the overline */
+        }
+
+        .big-heading::after {
+            bottom: -10px; /* Position the underline */
         }
 
         .container {
-            max-width: 800px;
-            margin: 50px auto;
-            margin-left: 330px;
+            max-width: 70%; 
+            margin: -300px auto; /* Adjust to ensure spacing from the top */
             padding: 20px;
-            background-color: #F3D9DC;
+            background-color: white; 
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             color: black;
         }
 
+        .collapsible:after {
+        content: '\02795'; /* Unicode character for "plus" sign (+) */
+        font-size: 20px;
+        color: white;
+        float: right;
+        margin-left: 0px;
+        }
+
+        .active:after {
+        content: "\2796"; /* Unicode character for "minus" sign (-) */
+        }
         h1, h2 {
             text-align: center;
         }
@@ -58,10 +119,8 @@
         }
 
         .team-member {
-            background-color: #F3D9DC;
             padding: 10px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: calc(33.333% - 20px);
             box-sizing: border-box;
             text-align: center;
@@ -75,21 +134,57 @@
         .team-member h3 {
             margin-top: 10px;
             font-size: 1.2em;
+            font-family: 'Inconsolata', monospace;
+            text-transform: capitalize;
         }
+
+        .collapsible {
+            background-color: white;
+            color: black; 
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            }
+
+            /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+            .active, .collapsible:hover {
+            color: underline overline; 
+            }
+
+            /* Style the collapsible content. Note: hidden by default */
+            .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+            }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'home' %}">Home</a>
+    <nav class="toolbar">
+        <ul>
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="{% url 'profile' user.username %}">PROFILE</a></li>
+            <li><a href="{% url 'find_songs' %}">FIND SONGS</a></li>
+            <li><a href="{% url 'add_song' %}">ADD A SONG</a></li>
+        </ul>
     </nav>
+
+    <h1 class="big-heading">ABOUT</h1>
     <div class="container">
-        <h1>About Us</h1>
-        <p>We are a team of students from the University of Chicago participating in the 2024 TikTok TechJam Hackathon. Our team members are:</p>
-        <div class="team">
+        <p style = "font-size: 50px;">We are a team of students from the University of Chicago participating in the 2024 TikTok TechJam Hackathon. </p>
+        <button type="button" class="collapsible" style ="font-size: 50px; font-family: 'Inconsolata', monospace">OUR TEAM</button>
+        <div class="content">
+        <p> <div class="team">
             <div class="team-member">
                 <h3>Alex Williams</h3>
                 <img src="{% static 'alex1.jpg' %}" alt="Alex">
             </div>
+
             <div class="team-member">
                 <h3>Alex Baumgartner</h3>
                 <img src="{% static 'images/alex2.jpg' %}" alt="Alex">
@@ -106,9 +201,33 @@
                 <h3>Alex Fan</h3>
                 <img src="{% static 'images/alex3.jpg' %}" alt="Alex">
             </div>
+        </p>
+
+        
         </div>
-        <h2>Our Project</h2>
-        <p>For this hackathon, we have developed an innovative platform that allows users to classify and rate songs based on their moods. By integrating with TikTok, we aim to provide users with a seamless experience to explore and categorize their favorite tunes.</p>
+        </div>
+        <button type="button" class="collapsible" style ="font-size: 50px; font-family: 'Inconsolata', monospace">OUR PROJECT</button>
+        <div class="content">
+        <p> <div class="project">
+        <p style="font-size: 50px;">We have developed an innovative platform that allows users to classify and rate songs based on their moods. By integrating with TikTok, we aim to provide users with a seamless experience to explore and categorize their favorite tunes.</p>
     </div>
+    </div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+        content.style.display = "none";
+        } else {
+        content.style.display = "block";
+        }
+    });
+    }
+</script>
 </body>
 </html>
