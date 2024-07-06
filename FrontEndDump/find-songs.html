@@ -7,112 +7,92 @@
     <title>Find Songs</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
+        body {
+    background-color: white;
+    color: black;
+    font-family: 'Inconsolata', monospace;
+    margin: 0;
+    padding: 0;
+}
 
-header {
-    height: 100vh;
+.toolbar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    height: 50px;
+    padding-top: 0px;
+    justify-content: center;
+    z-index: 1;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 0;
+    margin: .25;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.toolbar ul li {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.toolbar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 2em;
+    transition: all 0s; 
+}
+.toolbar a:hover {
+    text-decoration: overline underline; 
+    cursor: url("cursor1.png"), auto;
+}
+
+.big-heading {
+    font-size: 14rem; /* Customize the size as needed */
+    font-weight: normal;
+    text-align: left;
+    color: black; 
+    margin-left: -100px;
+    margin-top: 55px; /* Add space to avoid overlap with the toolbar */
+    padding: 10px 0; 
+    position: relative; /* For the pseudo-elements positioning */
+}
+
+.big-heading::before,
+.big-heading::after {
+    font-family: 'Inconsolata', monospace;
+    color: black; 
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+}
+
+.big-heading::before {
+    top: -10px; /* Position the overline */
+}
+
+.big-heading::after {
+    bottom: -10px; /* Position the underline */
 }
 
 .container {
-    clip: rect(0, auto, auto, 0);
     overflow: hidden;
-    position: absolute;
-    height: 100vh;
-    left: 0;
+    position: relative; /* Changed from absolute to relative */
     width: 100%;
-    -webkit-mask-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+    max-width: 1430px; /* Same as the .container_solid class */
+    margin-top: -450px; /* Move the container up closer to the title */
 }
 
 .container_solid {
     background: white;
     top: 0;
-}
-
-.title_wrapper {
-    position: fixed;
-    display: block;
-    margin: auto;
-    width: 100%;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
-}
-
-.title_wrapper h1 {
-    text-align: center;
-    font-size: 15vw;
-    text-transform: uppercase;
-    font-weight: 900;
-    font-family: 'Inconsolata', monospace;
-}
-
-.login_wrapper2 {
-    position: fixed;
-    display: block;
-    margin: auto;
-    width: 100%;
-    bottom: 0px; /* Move the login box higher */
-    text-align: center;
-    font-size: 1.5vm;
-}
-
-.login_icon {
-    display: block;
-    margin: 0 auto 10px auto;
-    width: 50px;
-    height: auto;
-}
-
-.login_wrapper2 footer {
-    text-align: end;
-    font-size: 1.5vm;
-    color: black;
-    text-decoration: none;
-    font-family: 'Inconsolata', monospace;
-}
-
-.login_wrapper {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -25%);
-    text-align: center;
-    font-size: 1.5vm;
-    color: black;
-}
-
-.login_form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.login_input {
-    padding: 10px;
-    margin: 5px;
-    font-size: 1.5vm;
-    text-transform: uppercase;
-    font-family: 'Inconsolata', monospace;
-    border-radius: 0; /* Remove border radius for sharp corners */
-    width: 200px;
-}
-
-.login_button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    font-size: 2em;
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: url(images/cursor.png), auto;
-    text-transform: uppercase;
-    font-family: 'Inconsolata', monospace; /* Match the font */
-}
-
-.login_button:hover {
-    text-decoration: overline underline;
-    background-color: transparent;
 }
 
 .container_solid .title_wrapper h1 {
@@ -139,19 +119,19 @@ header {
 
 section {
     min-height: 100vh;
-    padding: 2em;
+    padding: 0em;
     margin: auto;
     max-width: 800px;
 }
 
 section h2 {
-    font-family: 'Fraunces', serif;
+    font-family: 'Inconsolata', monospace;
 }
 
 body {
     background-color: white;
     font-family: 'Inconsolata', monospace;
-    margin: 0;
+    margin: -100;
     padding: 0;
     text-transform: uppercase;
     display: flex;
@@ -160,83 +140,6 @@ body {
 
 body:hover {
     cursor: url("images/cursor.png"), auto;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
-
-.btn {
-    cursor: url(images/cursor.png), auto;
-    position: relative;
-    padding: 10px 20px;
-    background: #ffebee;
-    font-size: 28px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    transition: all 1s;
-}
-
-.btn:after, .btn:before {
-    content: " ";
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    border: 0px solid #fff;
-    transition: all 1s;
-}
-
-.data-container {
-    background: #ffebee;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.toolbar {
-    display: flex;
-    position: fixed;
-    width: 100%;
-    background: #fff;
-    height: 30px;
-    padding-top: 20px;
-    justify-content: center;
-    z-index: 1;
-    cursor: url("images/cursor.png"), auto;
-}
-
-.toolbar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.toolbar ul li {
-    margin: 0 100px;
-    text-align: center;
-}
-
-.toolbar ul li a {
-    color: #000;
-    text-decoration: none;
-    font-size: 1.5em;
-    transition: all 0s;
-}
-
-.toolbar a {
-    color: #000;
-    text-decoration: none;
-    transition: color 0.0s;
-}
-
-.toolbar a:hover {
-    text-decoration: overline underline;
-    cursor: url("images/cursor1.png"), auto;
 }
 
 main {
@@ -294,12 +197,6 @@ main {
     font-size: 2em;
 }
 
-.album-cover img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #CCFCCB;
-}
-
 /* Responsive toolbar */
 @media (max-width: 768px) {
     .toolbar ul {
@@ -309,126 +206,117 @@ main {
         margin: 10px 0;
     }
 }
-       body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Inconsolata', monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: rgb(127, 55, 55);;
-        }
-        nav {
-            width: 100%;
-            background-color: rgb(127, 55, 55);
-            padding: 10px 0; /* Adjusted padding to make the nav bar smaller */
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            margin: 0;
-        }
-        nav ul li {
-            margin: 0 10px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 2em; /* Adjusted for a smaller font size */
-        }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1430px;
-            background-color: rgb(127, 55, 55);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .mood {
-            flex: 1;
-            text-align: center;
-            font-size: 2em;
-            cursor: pointer;
-            margin: 0 20px;
-            padding: 10px;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            transition: background-color 0.3s ease;
-        }
-        .mood:hover {
-        border: 0 solid;
-        box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-        outline: 1px solid;
-        outline-color: rgba(255, 255, 255, .5);
-        outline-offset: 0px;
-        text-shadow: none;
-        transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-        } 
 
-        .mood:hover {
-        border: 1px solid;
-        box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
-        outline-color: rgba(255, 255, 255, 0);
-        outline-offset: 15px;
-        text-shadow: 1px 1px 2px #427388; 
-        }
-        .song-container {
-            flex: 2;
-            text-align: center;
-            padding: 10px;
-        }
-        .song-container h2 {
-            font-size: 2em;
-            margin: 0;
-        }
-        .song-container p {
-            margin: 10px 0;
-            font-size: 1.2em;
-            color: #666;
-        }
-        .play-button {
-            border-radius: 10px; /* Add rounded corners */
-            padding: 10px 20px;
-            font-size: 1.5em;
-            background-color: transparent;
-            color: white;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-family: 'Inconsolata', monospace;
-            transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
-        }
-        .play-button:hover {
-        border: 0 solid;
-        box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-        outline: 1px solid;
-        outline-color: rgba(255, 255, 255, .5);
-        outline-offset: 0px;
-        text-shadow: none;
-        transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-        } 
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inconsolata', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-        .play-button:hover {
-        border: 1px solid;
-        box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
-        outline-color: rgba(255, 255, 255, 0);
-        outline-offset: 15px;
-        text-shadow: 1px 1px 2px #427388; 
-        }
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1430px;
+    padding: 20px;
+}
+
+.mood {
+    flex: 1;
+    text-align: center;
+    font-size: 2em;
+    cursor: pointer;
+    margin: 0 20px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.mood:hover {
+    border: 0 solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, .5);
+    outline-offset: 0px;
+    text-shadow: none;
+    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mood:hover {
+    border: 1px solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+    outline-color: rgba(255, 255, 255, 0);
+    outline-offset: 15px;
+    text-shadow: 1px 1px 2px #427388;
+}
+
+.song-container {
+    flex: 2;
+    text-align: center;
+    padding: 10px;
+}
+
+.song-container h2 {
+    font-size: 2em;
+    margin: 0;
+}
+
+.song-container p {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #666;
+}
+
+.play-button {
+    border-radius: 10px; /* Add rounded corners */
+    padding: 10px 20px;
+    font-size: 1.5em;
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Inconsolata', monospace;
+    transition: background-color 0.3s ease, border 0.3s ease, color 0.3s ease;
+}
+
+.play-button:hover {
+    border: 0 solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
+    outline: 1px solid;
+    outline-color: rgba(255, 255, 255, .5);
+    outline-offset: 0px;
+    text-shadow: none;
+    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.play-button:hover {
+    border: 1px solid;
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+    outline-color: rgba(255, 255, 255, 0);
+    outline-offset: 15px;
+    text-shadow: 1px 1px 2px #427388;
+}
+
 
     </style>
+
 </head>
 <body>
-    <nav>
+    <nav class="toolbar">
         <ul>
-            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="{% url 'profile' user.username %}">PROFILE</a></li>
+            <li><a href="{% url 'add_song' %}">ADD A SONG</a></li>
+            <li><a href="{% url 'about' %}">ABOUT</a></li>
         </ul>
     </nav>
+    <h1 class="big-heading">FIND SONGS</h1>
     <main>
         <section id="find-songs" class="container">
             {% if song %}

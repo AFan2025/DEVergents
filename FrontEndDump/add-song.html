@@ -8,36 +8,85 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         body {
-            background-color: #983E3E;
-            color: white;
+            background-color: white;
+            color: black;
             font-family: 'Inconsolata', monospace;
             margin: 0;
             padding: 0;
         }
 
-        nav {
-            background-color: grey;
-            padding: 10px 20px;
-        }
+.big-heading {
+    font-size: 14rem; /* Customize the size as needed */
+    font-weight: normal;
+    text-align: center;
+    color: black; 
+    margin-left: -200px;
+    margin-top: 55px; /* Add space to avoid overlap with the toolbar */
+    padding: 10px 0; 
+    position: relative; /* For the pseudo-elements positioning */
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            margin-right: 20px;
-        }
+.big-heading::before,
+.big-heading::after {
+    font-family: 'Inconsolata', monospace;
+    color: black; 
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+.big-heading::before {
+    top: -10px; /* Position the overline */
+}
+
+.big-heading::after {
+    bottom: -10px; /* Position the underline */
+}
+        .toolbar {
+        display: flex;
+        position: fixed;
+        top: 1;
+        width: 100%;
+        background: #fff;
+        height: 50px;
+        padding-top: 4px;
+        justify-content: left;
+        z-index: 1;
+}
+
+.toolbar ul {
+    list-style: none;
+    padding: 1;
+    margin: .25;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.toolbar ul li {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.toolbar ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 2em;
+    transition: all 0s; 
+}
+.toolbar a:hover {
+    text-decoration: overline underline; 
+    cursor: url("cursor1.png"), auto;
+}
 
         section {
-            max-width: 600px;
+            max-width: 900px;
             margin: 50px auto;
+            margin-top: 0px;
             padding: 20px;
-            background-color: #F3D9DC;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             color: black;
         }
 
@@ -54,40 +103,32 @@
         input[type="text"] {
             margin-bottom: 20px;
             padding: 10px;
-            border: 2px solid #D77A61;
+            border: 2px solid black;
             border-radius: 5px;
             font-size: 1em;
         }
 
         button {
             padding: 10px 20px;
-            border: none;
+            border: solid; 
             border-radius: 5px;
-            background-color: grey;
-            color: white;
+            background-color: white;
+            color: black;
             font-size: 1.1em;
             font-family: 'Inconsolata', monospace;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
         button:hover {
         border: 0 solid;
         box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
         outline: 1px solid;
-        outline-color: rgba(255, 255, 255, .5);
+        color: red;
+        outline-color: black; 
         outline-offset: 0px;
         text-shadow: none;
         transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
         } 
-
-        button:hover {
-        border: 1px solid;
-        box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
-        outline-color: rgba(255, 255, 255, 0);
-        outline-offset: 15px;
-        text-shadow: 1px 1px 2px #427388; 
-        }
 
         .videos {
             display: flex;
@@ -137,11 +178,17 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'home' %}">Home</a>
+    <nav class="toolbar">
+        <ul>
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li><a href="{% url 'profile' user.username %}">PROFILE</a></li>
+            <li><a href="{%url 'find_songs'%}">FIND SONGS</a></li>
+            <li><a href="{% url 'about' %}">ABOUT</a></li>
+        </ul>
     </nav>
+    <h1 class="big-heading">ADD SONGS</h1>
     <section id="add-song">
-        <h2>Add Song and Mood</h2>
+        <h2 style="font-family: 'Inconsolata', monospace;">Add Song and Mood</h2>
         <form method="POST" action="{% url 'add_song' %}">
             {% csrf_token %}
             <label for="title">Title:</label>
