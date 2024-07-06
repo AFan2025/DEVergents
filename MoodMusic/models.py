@@ -28,6 +28,7 @@ class NumMoodsSong(models.Model):
     #Ties it to the user and the song
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     song = models.ForeignKey(Song, on_delete = models.CASCADE)
+    usersongmoods = models.ForeignKey(UserSongMoods, on_delete = models.CASCADE)
 
     #has an integer value for every Mood we have so far
     numHappy = models.IntegerField(default=0, validators=[MaxValueValidator(3),MinValueValidator(0)]) 
@@ -80,6 +81,11 @@ class NumMoodsSong(models.Model):
     numBewildering = models.IntegerField(default=0, validators=[MaxValueValidator(3),MinValueValidator(0)]) 
     numOverwhelming = models.IntegerField(default=0, validators=[MaxValueValidator(3),MinValueValidator(0)]) 
     numInspiring = models.IntegerField(default=0, validators=[MaxValueValidator(3),MinValueValidator(0)]) 
+
+    rateLimit = models.IntegerField(default = 0)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.song}"
 
 def separate_moods(s):
     return s.split(',')

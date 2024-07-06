@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View
-from MoodMusic.models import UserSongMoods, Song, Friendship
+from MoodMusic.models import UserSongMoods, Song, Friendship, NumMoodsSong
 import random
 from django.shortcuts import get_object_or_404
 from django.http import Http404, HttpResponse, JsonResponse
@@ -18,6 +18,57 @@ import requests
 from django.conf import settings
 from django.contrib.auth import login
 from django.contrib import messages
+
+COLUMN_MAP = {'Happy': 'numHappy',
+ 'Sad': 'numSad',
+ 'Exciting': 'numExciting',
+ 'Calming': 'numCalming',
+ 'Angering': 'numAngering',
+ 'Relaxing': 'numRelaxing',
+ 'Motivating': 'numMotivating',
+ 'Melancholic': 'numMelancholic',
+ 'Anxious': 'numAnxious',
+ 'Joyful': 'numJoyful',
+ 'Contenting': 'numContenting',
+ 'Nostalgic': 'numNostalgic',
+ 'Peaceful': 'numPeaceful',
+ 'Energizing': 'numEnergizing',
+ 'Boring': 'numBoring',
+ 'Hopeful': 'numHopeful',
+ 'Lonely': 'numLonely',
+ 'Frustrating': 'numFrustrating',
+ 'Curious': 'numCurious',
+ 'Confident': 'numConfident',
+ 'Guilty': 'numGuilty',
+ 'Surprising': 'numSurprising',
+ 'Proud': 'numProud',
+ 'Scaring': 'numScaring',
+ 'Shy': 'numShy',
+ 'Grateful': 'numGrateful',
+ 'Disappointing': 'numDisappointing',
+ 'Loving': 'numLoving',
+ 'Worrying': 'numWorrying',
+ 'Indifferent': 'numIndifferent',
+ 'Elating': 'numElating',
+ 'Sorrowful': 'numSorrowful',
+ 'Amusing': 'numAmusing',
+ 'Apathetic': 'numApathetic',
+ 'Enthusiastic': 'numEnthusiastic',
+ 'Jealous': 'numJealous',
+ 'Ashamed': 'numAshamed',
+ 'Relieving': 'numRelieving',
+ 'Serene': 'numSerene',
+ 'Playful': 'numPlayful',
+ 'Restless': 'numRestless',
+ 'Tiring': 'numTiring',
+ 'Focusing': 'numFocusing',
+ 'Determining': 'numDetermining',
+ 'Sympathetic': 'numSympathetic',
+ 'Optimistic': 'numOptimistic',
+ 'Pessimistic': 'numPessimistic',
+ 'Bewildering': 'numBewildering',
+ 'Overwhelming': 'numOverwhelming',
+ 'Inspiring': 'numInspiring'}
 
 def signup(request):
     if request.method == 'POST':
@@ -92,6 +143,64 @@ def add_song(request):
             user=request.user,
             song=song,
             defaults={'moods': mood}
+        )
+        return redirect('home')
+    
+    return render(request, 'add-song.html')
+
+
+def rate_song(request, nummoods_id):
+    nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
+    
+    if request.method == 'POST':
+        nummoodsong.count += 1
+        nummoodsong.save()
+        return JsonResponse({'status': 'success', 'count': counter.count})
+    
+    return render(request, 'increment_counter.html', {'counter': counter})
+
+def increment_mood(nummoods_id, mood):
+     # Get the DataRecord instance
+    nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
+
+    # if request.method == 'POST':
+    #     # data = request.POST
+    #     # action = data.get('action')
+    #     # new_value = data.get('new_value')
+
+
+        # Get the column name from the mapping dictionary
+    column_name = COLUMN_MAP.get(mood)
+
+    if column_name and hasattr(nummoodsong, column_name):
+        setattr(record, column_name, int(new_value))
+        nummoodsong.save()
+        return JsonResponse({'status': 'success', 'new_value': new_value})
+    else:
+        return JsonResponse({'status': 'fail', 'message': 'Invalid action'}, status=400)
+
+
+@login_required
+def add_song2(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        artist = request.POST.get('artist')
+        mood = request.POST.get('mood')
+        try:
+            song = Song.objects.get(title=title, artist=artist)  # Use get() to fetch a single song
+        except Song.DoesNotExist:
+            return render(request, 'add-song.html', {'error': 'Song not found'})
+
+        # Create or update the mood associated with the song for the current user
+        UserSongMoods.objects.update_or_create(
+            user=request.user,
+            song=song,
+            defaults={'moods': mood}
+        )
+        NumMoodsSong.objects.update_or_create(
+            user = request.user,
+            song = song,
+            defaults = {element: 0 for element in COLUMN_MAP.values()}
         )
         return redirect('home')
     
