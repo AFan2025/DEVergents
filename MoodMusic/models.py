@@ -24,5 +24,6 @@ class Friendship(models.Model):
     friend2 = models.ForeignKey(User, on_delete = models.CASCADE, related_name='friend2')
 
 
+
 def separate_moods(s):
     return s.split(',')
