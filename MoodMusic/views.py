@@ -150,12 +150,27 @@ def add_song(request):
 
 
 def rate_song(request, nummoods_id):
-    nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
-    
     if request.method == 'POST':
-        nummoodsong.count += 1
-        nummoodsong.save()
-        return JsonResponse({'status': 'success', 'count': counter.count})
+        data = request.POST
+
+
+        ## Dependent on how it is returned from the html file
+        mood = data.get("mood")
+        response = increment_mood(nummoods_id, mood)
+
+        if response.content["rateLimit"] > 15:
+            redirect('home')
+        else:
+            return render(request, rate_song.html)
+
+
+    #     nummoodsong.count += 1
+    #     nummoodsong.save()
+    #     return JsonResponse({'status': 'success', 'count': counter.count})
+
+
+    # nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
+    
     
     return render(request, 'increment_counter.html', {'counter': counter})
 
@@ -163,14 +178,34 @@ def increment_mood(nummoods_id, mood):
      # Get the DataRecord instance
     nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
 
+    # Get the column name from the mapping dictionary
+    column_name = COLUMN_MAP.get(mood)
+
+    curval = getattr(nummoodsong, column_name)
+    curratelim = getattr(nummoodsong, "rateLimit")
+
+    # if curratelim <= 15:
+    if hasattr(nummoodsong, column_name):
+        setattr(nummoodsong, column_name, curval + 1)
+        setattr(nummoodsong, "rateLimit", curratelim + 1)
+        nummoodsong.save()
+        return JsonResponse({'status': 'success',
+                            'mood': column_name,
+                            'new_value': curval + 1, 
+                            "rateLimit": curratelim + 1})
+    # if curratelim == 14:
+    #     setattr(nummoodsong, column_name, curval + 1)
+    #     setattr(nummoodsong, "rateLimit", curratelim + 1)
+    #     nummoodsong.save()
+    #     return JsonResponse({'status': 'final', 'new_value': curval + 1})
+    else:
+        return JsonResponse({'status': 'fail', 'message': 'Invalid action'}, status=400)
+
+
     # if request.method == 'POST':
     #     # data = request.POST
     #     # action = data.get('action')
     #     # new_value = data.get('new_value')
-
-
-        # Get the column name from the mapping dictionary
-    column_name = COLUMN_MAP.get(mood)
 
     if column_name and hasattr(nummoodsong, column_name):
         setattr(record, column_name, int(new_value))
@@ -197,10 +232,10 @@ def add_song2(request):
             song=song,
             defaults={'moods': mood}
         )
-        NumMoodsSong.objects.update_or_create(
+        NumMoodsSong.objects.get_or_create(
             user = request.user,
-            song = song,
-            defaults = {element: 0 for element in COLUMN_MAP.values()}
+            song = song
+            # defaults = {element: 0 for element in COLUMN_MAP.values()}
         )
         return redirect('home')
     
