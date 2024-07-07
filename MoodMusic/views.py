@@ -105,6 +105,20 @@ def create_user_song_mood(request):
 def home(request):
     return render(request, 'index.html')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def find_songs(request):
     access_token = request.session.get('spotify_access_token')
     songs = Song.objects.all()
@@ -149,19 +163,52 @@ def add_song(request):
     return render(request, 'add-song.html')
 
 
+
+
+
+## General flow:
+    ##add_song2 -> (rate_song -> rate-song.html -> increment_song) x15 -> home
+
 def rate_song(request, nummoods_id):
+    access_token = request.session.get('spotify_access_token')
+    numsong_obj = NumMoodsSong.objects.get(id = nummoods_id)
+    song_obj = getattr(numsong_obj, "song")
+
+    mood1, colid1 = random.choice(list(COLUMN_MAP.items()))
+    mood2, colid2 = random.choice(list(COLUMN_MAP.items()))
+    while mood1 == mood2:
+        mood2, colid2 = random.choice(list(COLUMN_MAP.items()))
+    return render(request, 'find-songs.html', {
+        'numsong_obj': numsong_obj,
+        'song': song_obj,
+        'mood1': mood1,
+        'mood2': mood2,
+        'access_token': access_token,
+    })
+
+
+
     if request.method == 'POST':
         data = request.POST
+        # song = data.get("song")
+        # user = data.get("user")
 
+        # #find the user song pairing
+        # try:
+        #     nummoods = NumMoodsSong.objects.get(song=song, user=user) 
+        # except NumMoodsSong.DoesNotExist:
+        #     return render(request, "rate_song.html", {'error': 'Song not found'})
 
         ## Dependent on how it is returned from the html file
         mood = data.get("mood")
+
+        ##increments the mood file by 1
         response = increment_mood(nummoods_id, mood)
 
-        if response.content["rateLimit"] > 15:
+        if json.loads(response.content).get("rateLimit") > 15:
             redirect('home')
         else:
-            return render(request, rate_song.html)
+            return render(request, "rate_song.html")
 
 
     #     nummoodsong.count += 1
@@ -172,9 +219,14 @@ def rate_song(request, nummoods_id):
     # nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
     
     
-    return render(request, 'increment_counter.html', {'counter': counter})
+    # return render(request, "rate_song.html", {'counter': response.content["new_value"]})
+    return render(request, "rate_song.html")
 
-def increment_mood(nummoods_id, mood):
+def increment_mood(request):
+    if request.method == 'POST':
+        data = request.POST
+        nummoods_id = data.get("nummoods_id")
+
      # Get the DataRecord instance
     nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
 
@@ -232,14 +284,37 @@ def add_song2(request):
             song=song,
             defaults={'moods': mood}
         )
-        NumMoodsSong.objects.get_or_create(
+        new = NumMoodsSong.objects.get_or_create(
             user = request.user,
             song = song
             # defaults = {element: 0 for element in COLUMN_MAP.values()}
         )
-        return redirect('home')
+        return redirect('rate-song', nummoods_id = new.id)
     
     return render(request, 'add-song.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def profile(request, username):
