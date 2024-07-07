@@ -258,6 +258,7 @@ def increment_mood(request):
                             'mood': column_name,
                             'new_value': curval + 1, 
                             "rateLimit": curratelim + 1})
+        # return redirect('add_song')
     else:
         return JsonResponse({'status': 'fail', 'message': 'Invalid action'}, status=400)
 
@@ -287,17 +288,18 @@ def add_song(request):
             return render(request, 'add-song.html', {'error': 'Song not found'})
 
         # Create or update the mood associated with the song for the current user
-        UserSongMoods.objects.update_or_create(
+        usersongmood, _ = UserSongMoods.objects.get_or_create(
             user=request.user,
             song=song,
             defaults={'moods': mood}
         )
-        new = NumMoodsSong.objects.get_or_create(
+        new, _ = NumMoodsSong.objects.get_or_create(
             user = request.user,
             song = song,
             defaults = {element: 0 for element in COLUMN_MAP.values()}
         )
-        return redirect('rate-song', nummoods_id = new.id)
+        # return render(request, 'rate-song.html')
+        return redirect('rate_song', nummoods_id = new.id)
     
     return render(request, 'add-song.html')
 

@@ -38,6 +38,6 @@ urlpatterns = [
     path('tiktok/callback/', views.tiktok_callback, name='tiktok_callback'),
     path('spotify/callback/', views.spotify_callback, name='spotify_callback'),
     path('spotify/login/', views.spotify_login, name='spotify_login'),
-    path('rate_song/<int:object_id>/', views.rate_song, name = 'rate_song'),
+    path('rate_song/<int:nummoods_id>/', views.rate_song, name = 'rate_song'),
     path('increment_mood/', views.increment_mood, name='increment_mood')
 ]
