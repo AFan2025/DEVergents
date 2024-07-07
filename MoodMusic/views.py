@@ -141,26 +141,26 @@ def find_songs(request):
         'access_token': access_token,
     })
 
-@login_required
-def add_song(request):
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        artist = request.POST.get('artist')
-        mood = request.POST.get('mood')
-        try:
-            song = Song.objects.get(title=title, artist=artist)  # Use get() to fetch a single song
-        except Song.DoesNotExist:
-            return render(request, 'add-song.html', {'error': 'Song not found'})
+# @login_required
+# def add_song(request):
+#     if request.method == 'POST':
+#         title = request.POST.get('title')
+#         artist = request.POST.get('artist')
+#         mood = request.POST.get('mood')
+#         try:
+#             song = Song.objects.get(title=title, artist=artist)  # Use get() to fetch a single song
+#         except Song.DoesNotExist:
+#             return render(request, 'add-song.html', {'error': 'Song not found'})
 
-        # Create or update the mood associated with the song for the current user
-        UserSongMoods.objects.update_or_create(
-            user=request.user,
-            song=song,
-            defaults={'moods': mood}
-        )
-        return redirect('home')
+#         # Create or update the mood associated with the song for the current user
+#         UserSongMoods.objects.update_or_create(
+#             user=request.user,
+#             song=song,
+#             defaults={'moods': mood}
+#         )
+#         return redirect('home')
     
-    return render(request, 'add-song.html')
+#     return render(request, 'add-song.html')
 
 
 
@@ -226,6 +226,7 @@ def increment_mood(request):
     if request.method == 'POST':
         data = request.POST
         nummoods_id = data.get("nummoods_id")
+        mood = data.get("mood")
 
      # Get the DataRecord instance
     nummoodsong = get_object_or_404(NumMoodsSong, id=nummoods_id)
@@ -236,8 +237,7 @@ def increment_mood(request):
     curval = getattr(nummoodsong, column_name)
     curratelim = getattr(nummoodsong, "rateLimit")
 
-    # if curratelim <= 15:
-    if hasattr(nummoodsong, column_name):
+    if curratelim < 14:
         setattr(nummoodsong, column_name, curval + 1)
         setattr(nummoodsong, "rateLimit", curratelim + 1)
         nummoodsong.save()
@@ -250,6 +250,14 @@ def increment_mood(request):
     #     setattr(nummoodsong, "rateLimit", curratelim + 1)
     #     nummoodsong.save()
     #     return JsonResponse({'status': 'final', 'new_value': curval + 1})
+    elif curratelim == 14:
+        setattr(nummoodsong, column_name, curval + 1)
+        setattr(nummoodsong, "rateLimit", curratelim + 1)
+        nummoodsong.save()
+        return JsonResponse({'status': 'limit',
+                            'mood': column_name,
+                            'new_value': curval + 1, 
+                            "rateLimit": curratelim + 1})
     else:
         return JsonResponse({'status': 'fail', 'message': 'Invalid action'}, status=400)
 
@@ -268,7 +276,7 @@ def increment_mood(request):
 
 
 @login_required
-def add_song2(request):
+def add_song(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         artist = request.POST.get('artist')
@@ -286,8 +294,8 @@ def add_song2(request):
         )
         new = NumMoodsSong.objects.get_or_create(
             user = request.user,
-            song = song
-            # defaults = {element: 0 for element in COLUMN_MAP.values()}
+            song = song,
+            defaults = {element: 0 for element in COLUMN_MAP.values()}
         )
         return redirect('rate-song', nummoods_id = new.id)
     

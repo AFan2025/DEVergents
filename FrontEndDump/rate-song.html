@@ -522,7 +522,10 @@ main {
                     location.reload(); // Reload the page to load the next song
                 } else if (data.status === 'not_authenticated') {
                     alert('You need to log in to save your mood');
-                    window.location.href = "{% url 'login' %}?next={% url 'find_songs' %}";
+                    window.location.href = "{% url 'login' %}?next={% url 'ra_songs' %}";
+                } else if (data.status === 'limit') {
+                    alert('Thank you for rating this song!');
+                    window.location.href = "{% url 'add_song' %}";
                 } else {
                     alert('Failed to save mood');
                 }
