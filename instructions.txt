@@ -1,0 +1,7 @@
+Step 1: Make sure you have python installed on your computer (go to python.org to install, if not).
+Step 2: Clone the repository locally to your machine.
+Step 3: Run "pip3 install -r requirements.txt" from the root of the repository (wherever that is locally on your machine).
+Step 4: Run "python3 manage.py runserver" from the root of the repository to launch the server.
+Step 5: Either create a new account, or you can use the test account (username: testuser, pw: DEVergents1)
+Step 6: To make the Spotify API work, you'll need to be manually granted as a user, since the API is in dev build phase (email agwilliams200@gmail.com or agwilliams200@uchicago.edu to get granted, all that's needed is the email associated with your Spotify account (it needs to be a premium account)).
+Step 7: Enjoy!
