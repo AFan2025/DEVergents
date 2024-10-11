@@ -1,2 +1,2 @@
 # DEVergents
-Alex, Alex, Alex, Margaux, and Olivia's TikTok TechJam Project
+Alex Williams, Alex Fan, Alex Baumgartner, Margaux, and Olivia's TikTok TechJam Project
